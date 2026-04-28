@@ -1,0 +1,37 @@
+﻿/// Employee dimension — used for salesperson analysis
+table DimEmployee
+
+	column EmployeeKey
+		dataType: int64
+		isHidden
+		sourceColumn: EmployeeKey
+
+	column 'Employee Name'
+		dataType: string
+		sourceColumn: Employee Name
+
+	column Title
+		dataType: string
+		sourceColumn: Title
+
+	column Department
+		dataType: string
+		sourceColumn: Department
+
+	column SalesPersonFlag
+		dataType: boolean
+		sourceColumn: SalesPersonFlag
+
+	partition DimEmployee = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("localhost\SQLEXPRESS", "AdventureWorksDW2022"),
+				    tbl = Source{[Schema="dbo",Item="DimEmployee"]}[Data],
+				    selected = Table.SelectColumns(tbl,{"EmployeeKey","FirstName","LastName","Title","DepartmentName","SalesPersonFlag"}),
+				    fullname = Table.AddColumn(selected,"Employee Name", each [FirstName] & " " & [LastName]),
+				    renamed = Table.RenameColumns(fullname,{{"DepartmentName","Department"}}),
+				    final = Table.RemoveColumns(renamed,{"FirstName","LastName"})
+				in
+				    final
+

@@ -1,0 +1,92 @@
+﻿/// Reseller (B2B) sales transactions — one row per product per order line
+table FactResellerSales
+
+	column ProductKey
+		dataType: int64
+		isHidden
+		sourceColumn: ProductKey
+
+	column OrderDateKey
+		dataType: int64
+		isHidden
+		sourceColumn: OrderDateKey
+
+	column SalesTerritoryKey
+		dataType: int64
+		isHidden
+		sourceColumn: SalesTerritoryKey
+
+	column EmployeeKey
+		dataType: int64
+		isHidden
+		sourceColumn: EmployeeKey
+
+	column ResellerKey
+		dataType: int64
+		isHidden
+		sourceColumn: ResellerKey
+
+	column OrderQuantity
+		dataType: int64
+		sourceColumn: OrderQuantity
+
+	column UnitPrice
+		dataType: double
+		summarizeBy: sum
+		sourceColumn: UnitPrice
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ExtendedAmount
+		dataType: double
+		summarizeBy: sum
+		sourceColumn: ExtendedAmount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column TotalProductCost
+		dataType: double
+		summarizeBy: sum
+		sourceColumn: TotalProductCost
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column SalesAmount
+		dataType: double
+		summarizeBy: sum
+		sourceColumn: SalesAmount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column DiscountAmount
+		dataType: double
+		summarizeBy: sum
+		sourceColumn: DiscountAmount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column OrderDate
+		dataType: dateTime
+		sourceColumn: OrderDate
+
+	partition FactResellerSales = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("localhost\SQLEXPRESS", "AdventureWorksDW2022"),
+				    tbl = Source{[Schema="dbo",Item="FactResellerSales"]}[Data],
+				    selected = Table.SelectColumns(tbl,{"ProductKey","OrderDateKey","SalesTerritoryKey","EmployeeKey","ResellerKey","OrderQuantity","UnitPrice","ExtendedAmount","TotalProductCost","SalesAmount","DiscountAmount","OrderDate"}),
+				    typed = Table.TransformColumnTypes(selected,{{"ProductKey",Int64.Type},{"OrderDateKey",Int64.Type},{"SalesTerritoryKey",Int64.Type},{"EmployeeKey",Int64.Type},{"ResellerKey",Int64.Type},{"OrderQuantity",Int64.Type},{"UnitPrice",type number},{"ExtendedAmount",type number},{"TotalProductCost",type number},{"SalesAmount",type number},{"DiscountAmount",type number},{"OrderDate",type datetime}},"en-US")
+				in
+				    typed
+

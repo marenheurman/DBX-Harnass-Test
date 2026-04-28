@@ -1,0 +1,23 @@
+﻿/// Top-level product category
+table DimProductCategory
+
+	column ProductCategoryKey
+		dataType: int64
+		isHidden
+		sourceColumn: ProductCategoryKey
+
+	column 'Product Category'
+		dataType: string
+		sourceColumn: Product Category
+
+	partition DimProductCategory = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("localhost\SQLEXPRESS", "AdventureWorksDW2022"),
+				    tbl = Source{[Schema="dbo",Item="DimProductCategory"]}[Data],
+				    selected = Table.SelectColumns(tbl,{"ProductCategoryKey","EnglishProductCategoryName"}),
+				    renamed = Table.RenameColumns(selected,{{"EnglishProductCategoryName","Product Category"}})
+				in
+				    renamed
+

@@ -1,0 +1,239 @@
+﻿/// Dedicated host table for all report measures. Not used directly in visuals.
+table _Measures
+	isHidden
+
+	/// Total B2C internet sales revenue
+	measure 'Total Internet Sales' = SUM(FactInternetSales[SalesAmount])
+		formatString: $#,##0
+		displayFolder: Sales
+
+	/// Total B2B reseller sales revenue
+	measure 'Total Reseller Sales' = SUM(FactResellerSales[SalesAmount])
+		formatString: $#,##0
+		displayFolder: Sales
+
+	/// Combined B2C and B2B sales revenue
+	measure 'Total Sales' = [Total Internet Sales] + [Total Reseller Sales]
+		formatString: $#,##0
+		displayFolder: Sales
+
+	/// Total product cost across internet sales
+	measure 'Total Cost' = SUM(FactInternetSales[TotalProductCost])
+		formatString: $#,##0
+		isHidden
+		displayFolder: Sales
+
+	/// Gross profit margin on internet sales
+	measure 'Profit Margin' = DIVIDE([Total Internet Sales] - [Total Cost], [Total Internet Sales])
+		formatString: 0.0%
+		displayFolder: Sales
+
+	/// Total units sold via internet channel
+	measure 'Total Quantity Sold' = SUM(FactInternetSales[OrderQuantity])
+		formatString: #,##0
+		displayFolder: Sales
+
+	/// Internet sales in the same period last year
+	measure 'Sales LY' = CALCULATE([Total Internet Sales], SAMEPERIODLASTYEAR(DimDate[Date]))
+		formatString: $#,##0
+		displayFolder: Sales
+
+	/// Year-over-year internet sales growth percentage
+	measure 'YoY Growth %' = DIVIDE([Total Internet Sales] - [Sales LY], [Sales LY])
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: Sales
+
+	/// Total number of customers with churn scores
+	measure 'Total Customers Analysed' = COUNTROWS(ChurnScores)
+		formatString: #,##0
+		displayFolder: Churn
+
+	/// Customers in the Critical churn risk band
+	measure 'Critical Risk Customers' = COUNTROWS(FILTER(ChurnScores, ChurnScores[RiskBand] = "Critical"))
+		formatString: #,##0
+		displayFolder: Churn
+
+	/// Customers in the High churn risk band only
+	measure 'High Risk Customers' = COUNTROWS(FILTER(ChurnScores, ChurnScores[RiskBand] = "High"))
+		formatString: #,##0
+		displayFolder: Churn
+
+	/// Total at-risk customers (Critical + High)
+	measure 'At Risk Customers' = [Critical Risk Customers] + [High Risk Customers]
+		formatString: #,##0
+		displayFolder: Churn
+
+	/// Revenue at risk from Critical and High churn customers
+	measure 'Revenue at Risk' = CALCULATE(SUM(ChurnScores[TotalSpend]), ChurnScores[RiskBand] IN {"Critical", "High"})
+		formatString: $#,##0
+		displayFolder: Churn
+
+	/// Average ML churn probability score (0-1)
+	measure 'Avg Churn Score' = AVERAGE(ChurnScores[ChurnRiskScore])
+		formatString: 0.0%
+		displayFolder: Churn
+
+	/// Percentage of customers who have churned
+	measure 'Churn Rate %' = DIVIDE(COUNTROWS(FILTER(ChurnScores, ChurnScores[Churned] = 1)), COUNTROWS(ChurnScores))
+		formatString: 0.0%
+		displayFolder: Churn
+
+	/// ML model accuracy (fixed from model validation results)
+	measure 'Model Accuracy' = 0.958
+		formatString: 0.0%
+		displayFolder: Churn
+
+	/// Number of customers per RFM segment
+	measure 'Segment Count' = COUNTROWS(RFM_SegmentSummary)
+		formatString: #,##0
+		displayFolder: Churn
+
+	/// Total campaign actions generated
+	measure 'Total Actions' = COUNTROWS(CampaignActions)
+		formatString: #,##0
+		displayFolder: Campaign
+
+	/// Campaign actions with Sent status
+	measure 'Actions Sent' = COUNTROWS(FILTER(CampaignActions, SEARCH("– Awaiting", CampaignActions[Status], 1, 0) > 0))
+		formatString: #,##0
+		displayFolder: Campaign
+
+	/// Total estimated revenue recovery from campaign actions
+	measure 'Estimated Recovery' = SUM(CampaignActions[EstimatedRecovery])
+		formatString: $#,##0
+		displayFolder: Campaign
+
+	/// Average estimated recovery per action
+	measure 'Avg Recovery per Customer' = DIVIDE([Estimated Recovery], [Total Actions])
+		formatString: $#,##0
+		displayFolder: Campaign
+
+	/// Count of P1 (Urgent) priority actions
+	measure 'P1 Urgent Actions' = COUNTROWS(FILTER(CampaignActions, SEARCH("P1", CampaignActions[Priority], 1, 0) > 0))
+		formatString: #,##0
+		displayFolder: Campaign
+
+	/// Sales quota target total for selected period
+	measure 'Sales Quota' = SUM(FactSalesQuota[SalesAmountQuota])
+		formatString: $#,##0
+		displayFolder: Sales
+
+	/// Variance between actual reseller sales and sales quota
+	measure 'Sales vs Quota' = [Total Reseller Sales] - [Sales Quota]
+		formatString: $#,##0;-$#,##0;$0
+		displayFolder: Sales
+
+	/// Total number of unique customers across all sales channels
+	measure 'Total Customers' = DISTINCTCOUNT(FactInternetSales[CustomerKey])
+		formatString: #,##0
+		displayFolder: Customer
+
+	/// Average revenue generated per customer in the selected period
+	measure 'Avg Revenue per Customer' = DIVIDE([Total Internet Sales], [Total Customers])
+		formatString: $#,##0.00
+		displayFolder: Customer
+
+	/// Customers making their first ever purchase in the selected period
+	measure 'New Customers' =
+			CALCULATE(
+			    DISTINCTCOUNT(FactInternetSales[CustomerKey]),
+			    FILTER(
+			        VALUES(FactInternetSales[CustomerKey]),
+			        CALCULATE(MIN(FactInternetSales[OrderDate])) >= MIN(DimDate[Date])
+			    )
+			)
+		formatString: #,##0
+		displayFolder: Customer
+
+	/// Customers who have placed more than one order in the selected period
+	measure 'Repeat Customers' =
+			CALCULATE(
+			    DISTINCTCOUNT(FactInternetSales[CustomerKey]),
+			    FILTER(
+			        VALUES(FactInternetSales[CustomerKey]),
+			        CALCULATE(COUNTROWS(FactInternetSales)) > 1
+			    )
+			)
+		formatString: #,##0
+		displayFolder: Customer
+
+	/// Percentage of customers who made more than one purchase
+	measure 'Repeat Purchase Rate %' = DIVIDE([Repeat Customers], [Total Customers], 0)
+		formatString: 0.0%
+		displayFolder: Customer
+
+	/// Count of customers in the Low churn risk band
+	measure 'Low Risk Customers' =
+			CALCULATE(
+			    COUNTROWS(ChurnScores),
+			    ChurnScores[RiskBand] = "Low"
+			)
+		formatString: #,##0
+		displayFolder: Churn
+
+	/// Count of customers in the Medium churn risk band
+	measure 'Medium Risk Customers' =
+			CALCULATE(
+			    COUNTROWS(ChurnScores),
+			    ChurnScores[RiskBand] = "Medium"
+			)
+		formatString: #,##0
+		displayFolder: Churn
+
+	/// Estimated campaign recovery as a percentage of total revenue at risk
+	measure 'Revenue Recovery Rate %' = DIVIDE([Estimated Recovery], [Revenue at Risk], 0)
+		formatString: 0.0%
+		displayFolder: Churn
+
+	/// Count of customers labelled as Champions in the RFM model
+	measure Champions =
+			CALCULATE(
+			    COUNTROWS(RFM_Customers),
+			    RFM_Customers[Segment] = "Champions"
+			)
+		formatString: #,##0
+		displayFolder: RFM
+
+	/// Count of customers labelled as At Risk in the RFM model
+	measure 'At Risk Segment Count' =
+			CALCULATE(
+			    COUNTROWS(RFM_Customers),
+			    RFM_Customers[Segment] = "At Risk"
+			)
+		formatString: #,##0
+		displayFolder: RFM
+
+	/// Count of customers labelled as Loyal in the RFM model
+	measure 'Loyal Customers' =
+			CALCULATE(
+			    COUNTROWS(RFM_Customers),
+			    RFM_Customers[Segment] = "Loyal Customers"
+			)
+		formatString: #,##0
+		displayFolder: RFM
+
+	/// Average recency score across all RFM-scored customers
+	measure 'Avg RFM Recency' = AVERAGE(RFM_Customers[Recency])
+		formatString: #,##0.0
+		displayFolder: RFM
+
+	/// Average purchase frequency across all RFM-scored customers
+	measure 'Avg RFM Frequency' = AVERAGE(RFM_Customers[Frequency])
+		formatString: #,##0.0
+		displayFolder: RFM
+
+	/// Average churn risk score across RFM-scored customers (0=low risk, 1=high risk)
+	measure 'Avg RFM Churn Risk' = AVERAGE(RFM_Customers[ChurnRiskScore])
+		formatString: 0.00%
+		displayFolder: RFM
+
+	column _
+		dataType: int64
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: [_]
+
+	partition _Measures = calculated
+		mode: import
+		source = ROW("_", BLANK())
+

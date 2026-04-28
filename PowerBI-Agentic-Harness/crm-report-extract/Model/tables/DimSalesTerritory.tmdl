@@ -1,0 +1,31 @@
+﻿/// Geographic sales territory dimension
+table DimSalesTerritory
+
+	column SalesTerritoryKey
+		dataType: int64
+		isHidden
+		sourceColumn: SalesTerritoryKey
+
+	column Region
+		dataType: string
+		sourceColumn: Region
+
+	column Country
+		dataType: string
+		sourceColumn: Country
+
+	column Group
+		dataType: string
+		sourceColumn: Group
+
+	partition DimSalesTerritory = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("localhost\SQLEXPRESS", "AdventureWorksDW2022"),
+				    tbl = Source{[Schema="dbo",Item="DimSalesTerritory"]}[Data],
+				    selected = Table.SelectColumns(tbl,{"SalesTerritoryKey","SalesTerritoryRegion","SalesTerritoryCountry","SalesTerritoryGroup"}),
+				    renamed = Table.RenameColumns(selected,{{"SalesTerritoryRegion","Region"},{"SalesTerritoryCountry","Country"},{"SalesTerritoryGroup","Group"}})
+				in
+				    renamed
+

@@ -1,0 +1,66 @@
+﻿/// Aggregated RFM segment summary — one row per customer segment
+table RFM_SegmentSummary
+
+	column Segment
+		dataType: string
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: ChurnScores[Segment]
+
+	column CustomerCount
+		dataType: int64
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: [CustomerCount]
+
+	column AvgRecency
+		dataType: double
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: [AvgRecency]
+
+	column AvgFrequency
+		dataType: double
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: [AvgFrequency]
+
+	column TotalRevenue
+		dataType: double
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: [TotalRevenue]
+
+	column AvgChurnRisk
+		dataType: double
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: [AvgChurnRisk]
+
+	column HighRiskCount
+		dataType: int64
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: [HighRiskCount]
+
+	column AvgOrderValue
+		dataType: double
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: [AvgOrderValue]
+
+	partition RFM_SegmentSummary = calculated
+		mode: import
+		source =
+				SUMMARIZE(
+				    ChurnScores,
+				    ChurnScores[Segment],
+				    "CustomerCount",     COUNTROWS(ChurnScores),
+				    "AvgRecency",        AVERAGE(ChurnScores[Recency]),
+				    "AvgFrequency",      AVERAGE(ChurnScores[Frequency]),
+				    "TotalRevenue",      SUM(ChurnScores[TotalSpend]),
+				    "AvgChurnRisk",      AVERAGE(ChurnScores[ChurnRiskScore]),
+				    "HighRiskCount",     COUNTROWS(FILTER(ChurnScores, ChurnScores[RiskBand] = "High" || ChurnScores[RiskBand] = "Critical")),
+				    "AvgOrderValue",     AVERAGE(ChurnScores[AvgOrderValue])
+				)
+

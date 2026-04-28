@@ -1,0 +1,91 @@
+﻿/// Customer master — demographics and contact data
+table DimCustomer
+
+	column CustomerKey
+		dataType: int64
+		isHidden
+		sourceColumn: CustomerKey
+
+	column GeographyKey
+		dataType: int64
+		isHidden
+		sourceColumn: GeographyKey
+
+	column CustomerAlternateKey
+		dataType: string
+		sourceColumn: CustomerAlternateKey
+
+	column FirstName
+		dataType: string
+		sourceColumn: FirstName
+
+	column LastName
+		dataType: string
+		sourceColumn: LastName
+
+	column CustomerName
+		dataType: string
+		sourceColumn: CustomerName
+
+	column EmailAddress
+		dataType: string
+		sourceColumn: EmailAddress
+
+	column Phone
+		dataType: string
+		sourceColumn: Phone
+
+	column BirthDate
+		dataType: dateTime
+		sourceColumn: BirthDate
+
+	column MaritalStatus
+		dataType: string
+		sourceColumn: MaritalStatus
+
+	column Gender
+		dataType: string
+		sourceColumn: Gender
+
+	column YearlyIncome
+		dataType: double
+		summarizeBy: sum
+		sourceColumn: YearlyIncome
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column TotalChildren
+		dataType: int64
+		sourceColumn: TotalChildren
+
+	column HouseOwnerFlag
+		dataType: int64
+		sourceColumn: HouseOwnerFlag
+
+	column NumberCarsOwned
+		dataType: int64
+		sourceColumn: NumberCarsOwned
+
+	column Occupation
+		dataType: string
+		sourceColumn: Occupation
+
+	column DateFirstPurchase
+		dataType: dateTime
+		sourceColumn: DateFirstPurchase
+
+	partition DimCustomer = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("localhost\SQLEXPRESS", "AdventureWorksDW2022"),
+				    tbl = Source{[Schema="dbo",Item="DimCustomer"]}[Data],
+				    selected = Table.SelectColumns(tbl,{"CustomerKey","GeographyKey","CustomerAlternateKey","FirstName","LastName","EmailAddress","Phone","BirthDate","MaritalStatus","Gender","YearlyIncome","TotalChildren","HouseOwnerFlag","NumberCarsOwned","EnglishOccupation","DateFirstPurchase"}),
+				    renamed = Table.RenameColumns(selected,{{"EnglishOccupation","Occupation"}}),
+				    typed = Table.TransformColumnTypes(renamed,{{"CustomerKey",Int64.Type},{"GeographyKey",Int64.Type},{"YearlyIncome",type number},{"TotalChildren",Int64.Type},{"HouseOwnerFlag",Int64.Type},{"NumberCarsOwned",Int64.Type},{"BirthDate",type datetime},{"DateFirstPurchase",type datetime}},"en-US"),
+				    fullname = Table.AddColumn(typed,"CustomerName",each [FirstName] & " " & [LastName])
+				in
+				    fullname
+

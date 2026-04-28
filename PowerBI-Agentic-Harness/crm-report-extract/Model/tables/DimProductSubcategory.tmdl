@@ -1,0 +1,28 @@
+﻿/// Product subcategory grouping
+table DimProductSubcategory
+
+	column ProductSubcategoryKey
+		dataType: int64
+		isHidden
+		sourceColumn: ProductSubcategoryKey
+
+	column ProductCategoryKey
+		dataType: int64
+		isHidden
+		sourceColumn: ProductCategoryKey
+
+	column 'Product Subcategory'
+		dataType: string
+		sourceColumn: Product Subcategory
+
+	partition DimProductSubcategory = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("localhost\SQLEXPRESS", "AdventureWorksDW2022"),
+				    tbl = Source{[Schema="dbo",Item="DimProductSubcategory"]}[Data],
+				    selected = Table.SelectColumns(tbl,{"ProductSubcategoryKey","ProductCategoryKey","EnglishProductSubcategoryName"}),
+				    renamed = Table.RenameColumns(selected,{{"EnglishProductSubcategoryName","Product Subcategory"}})
+				in
+				    renamed
+

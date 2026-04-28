@@ -1,0 +1,38 @@
+{
+  "_meta": {
+    "description": "Addendum entries to merge into docs/llm-index.json. These cover the new files added to support programmatic PBIX report page generation.",
+    "merge_instruction": "Add each entry in 'new_entries' into the top-level array of docs/llm-index.json."
+  },
+  "new_entries": [
+    {
+      "file": "docs/pbix-layout-format.md",
+      "description": "Complete reference for the internal .pbix ZIP structure, UTF-16-LE encoding requirement, SecurityBindings zeroing, visual container JSON schema, double-serialisation rules, projections key names by visual type, and known failure modes. Required reading before any programmatic report page generation.",
+      "when_to_read": "When building or modifying report pages in a .pbix file using Python."
+    },
+    {
+      "file": "docs/model-manifest.json",
+      "description": "Machine-readable manifest of every table, column, measure, and relationship in the CRM Decision Intelligence semantic model. Includes column value notes for ML tables. Use this to resolve exact field names before writing report scripts or DAX.",
+      "when_to_read": "Before writing any report build script, DAX measure, or visual binding that references model fields."
+    },
+    {
+      "file": "docs/tooling-decision-addendum.md",
+      "description": "Supplement to tooling-decision.md. Adds guidance on when to use Python ZIP manipulation vs pbi-tools for report page generation, and records lessons learned from the first CRM Decision Intelligence report build session.",
+      "when_to_read": "When deciding how to modify a .pbix file, or before starting a report build task."
+    },
+    {
+      "file": "templates/build-report-template.py",
+      "description": "Fully documented Python starter template for programmatic PBIX report page generation. Contains make_textbox, make_card, make_chart, make_table, and make_page helpers, plus the complete build_pbix() writer function with correct encoding and SecurityBindings handling.",
+      "when_to_read": "When writing a new report build script. Use this file as the starting point rather than building from scratch."
+    }
+  ],
+  "updated_task_routing": {
+    "note": "Add the following row to the Task Routing Map table in docs/llm-orientation.md",
+    "row": {
+      "user_intent": "Build or add pages to a Power BI report using Python",
+      "primary_reference": "docs/pbix-layout-format.md",
+      "supporting_files": "docs/model-manifest.json, docs/tooling-decision-addendum.md",
+      "template": "templates/build-report-template.py",
+      "example": "examples/sample-report-review.md"
+    }
+  }
+}
