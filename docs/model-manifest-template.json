@@ -1,0 +1,53 @@
+{
+  "_meta": {
+    "description": "Template for documenting the tables, columns, and measures in your Power BI semantic model. Used by agents to resolve exact field names when building reports programmatically or writing DAX, without needing a live MCP connection.",
+    "instructions": "Copy this file, rename it to model-manifest.json (or a project-specific name), and populate it with your model's actual tables, columns, measures, and relationships. Exact spelling and casing of all names is critical — a single character difference will cause visuals to render empty with no error.",
+    "last_updated": "YYYY-MM-DD",
+    "model": "Replace with your model name"
+  },
+  "canvas_width": 1280,
+  "canvas_height": 720,
+  "measures_table": "_Measures",
+  "measures": [
+    {
+      "_comment": "Add one object per measure. 'name' must exactly match the measure name in the model.",
+      "name": "Example Measure",
+      "folder": "FolderName",
+      "format": "currency | percent | integer | decimal | text"
+    }
+  ],
+  "tables": [
+    {
+      "_comment": "Add one object per table. 'type' should be 'fact', 'dimension', or 'calculated'.",
+      "name": "FactTableName",
+      "type": "fact",
+      "columns": [
+        "Column1",
+        "Column2"
+      ]
+    },
+    {
+      "name": "DimTableName",
+      "type": "dimension",
+      "columns": [
+        "KeyColumn",
+        "DescriptiveColumn"
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "_comment": "Add one object per relationship.",
+      "from_table": "FactTableName",
+      "from_column": "KeyColumn",
+      "to_table": "DimTableName",
+      "to_column": "KeyColumn",
+      "cardinality": "many-to-one",
+      "cross_filter_direction": "single"
+    }
+  ],
+  "column_value_notes": {
+    "_comment": "Optional. Document known discrete values for columns used in filtering or visual labels — especially ML output columns.",
+    "ExampleTable.StatusColumn": ["Active", "Inactive", "Pending"]
+  }
+}
