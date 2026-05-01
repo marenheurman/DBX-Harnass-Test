@@ -35,12 +35,12 @@ For a machine-readable routing index, use [`docs/llm-index.json`](docs/llm-index
 
 | What the user wants | Load first |
 |---|---|
-| Review semantic model structure | `.claude/skills/semantic-model-review/SKILL.md` |
-| Review DAX measures | `.claude/skills/dax-review/SKILL.md` |
-| Review report design / accessibility | `.claude/skills/report-review/SKILL.md` |
-| Validate PBIP project structure | `.claude/skills/pbip-structure/SKILL.md` |
-| Check naming conventions | `.claude/skills/naming-conventions/SKILL.md` |
-| Run full pre-release assessment | `.claude/skills/release-readiness/SKILL.md` |
+| Review semantic model structure | `.agents/skills/semantic-model-review/skill.md` |
+| Review DAX measures | `.agents/skills/dax-review/skill.md` |
+| Review report design / accessibility | `.agents/skills/report-review/skill.md` |
+| Validate PBIP project structure | `.agents/skills/pbip-structure/skill.md` |
+| Check naming conventions | `.agents/skills/naming-conventions/skill.md` |
+| Run full pre-release assessment | `.agents/skills/release-readiness/skill.md` |
 | Build report pages in a .pbix using Python | `docs/pbix-layout-format.md` |
 
 For the complete routing table including rules, templates, and examples, see [`docs/llm-orientation.md`](docs/llm-orientation.md).

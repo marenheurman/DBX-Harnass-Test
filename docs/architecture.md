@@ -31,7 +31,7 @@ Agents must never directly modify a published Power BI dataset, report, or works
 ┌─────────────────────────────────┐
 │  AI Agent                       │
 │  (GitHub Copilot / Claude)      │
-│  + skills from .claude/skills/  │
+│  + skills from .agents/skills/  │
 └──────────────┬──────────────────┘
                │ MCP tool calls
                ▼

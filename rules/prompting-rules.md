@@ -12,7 +12,7 @@ Before starting a review, the agent should load context in this order unless the
 
 1. `rules/safety-rules.md`
 2. `rules/prompting-rules.md`
-3. The relevant skill in `.claude/skills/`
+3. The relevant skill in `.agents/skills/`
 4. The relevant task rule file
 5. The relevant template
 6. The matching example, if one exists

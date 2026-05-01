@@ -34,7 +34,7 @@
   },
   "tasks": {
     "semantic-model-review": {
-      "skill": ".claude/skills/semantic-model-review/skill.md",
+      "skill": ".agents/skills/semantic-model-review/skill.md",
       "rules": [
         "rules/modeling-rules.md",
         "rules/safety-rules.md",
@@ -45,7 +45,7 @@
       "test": "tests/prompt-tests/semantic-model-review.md"
     },
     "dax-review": {
-      "skill": ".claude/skills/dax-review/skill.md",
+      "skill": ".agents/skills/dax-review/skill.md",
       "rules": [
         "rules/dax-rules.md",
         "rules/safety-rules.md",
@@ -56,7 +56,7 @@
       "test": "tests/rule-tests/dax-rule-checks.md"
     },
     "report-review": {
-      "skill": ".claude/skills/report-review/skill.md",
+      "skill": ".agents/skills/report-review/skill.md",
       "rules": [
         "rules/report-rules.md",
         "docs/custom-visuals.md",
@@ -68,7 +68,7 @@
       "test": "tests/prompt-tests/report-review.md"
     },
     "pbip-structure": {
-      "skill": ".claude/skills/pbip-structure/skill.md",
+      "skill": ".agents/skills/pbip-structure/skill.md",
       "rules": [
         "rules/governance-rules.md",
         "rules/safety-rules.md",
@@ -79,7 +79,7 @@
       "test": "tests/prompt-tests/pbip-structure.md"
     },
     "naming-conventions": {
-      "skill": ".claude/skills/naming-conventions/skill.md",
+      "skill": ".agents/skills/naming-conventions/skill.md",
       "rules": [
         "rules/prompting-rules.md"
       ],
@@ -88,7 +88,7 @@
       "test": "tests/prompt-tests/naming-conventions.md"
     },
     "release-readiness": {
-      "skill": ".claude/skills/release-readiness/skill.md",
+      "skill": ".agents/skills/release-readiness/skill.md",
       "rules": [
         "rules/safety-rules.md",
         "rules/prompting-rules.md",
@@ -102,7 +102,7 @@
       "test": "tests/prompt-tests/release-readiness.md"
     },
     "custom-visual-review": {
-      "skill": ".claude/skills/report-review/skill.md",
+      "skill": ".agents/skills/report-review/skill.md",
       "rules": [
         "rules/report-rules.md",
         "docs/custom-visuals.md",

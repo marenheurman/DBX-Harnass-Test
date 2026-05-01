@@ -96,7 +96,7 @@ powerbi-agentic-harness/
 │   ├── llm-index.json               ← Machine-readable routing and terminology index for LLMs
 │   └── llm-orientation.md           ← Recommended read order, terminology, and routing for LLMs
 │
-├── .claude/
+├── .agents/
 │   └── skills/
 │       ├── semantic-model-review/   ← Full model topology and relationship review
 │       ├── dax-review/              ← DAX measure quality and correctness
@@ -164,12 +164,12 @@ Agent skills in this harness that propose report-level changes assume pbi-tools 
 
 ### With Claude (claude.ai or API)
 
-Skills are stored in `.claude/skills/`. You can reference them directly in your system prompt, or tell Claude to fetch and follow the instructions in a specific skill file.
+Skills are stored in `.agents/skills/`. You can reference them directly in your system prompt, or tell Claude to fetch and follow the instructions in a specific skill file.
 
 ### Pointing to a Skill Explicitly
 
 ```
-Follow the instructions in .claude/skills/dax-review/skill.md and review all measures in the Sales table.
+Follow the instructions in .agents/skills/dax-review/skill.md and review all measures in the Sales table.
 ```
 
 ---
@@ -178,7 +178,7 @@ Follow the instructions in .claude/skills/dax-review/skill.md and review all mea
 
 ### Adding a New Skill
 
-1. Create a folder under `.claude/skills/<skill-name>/`
+1. Create a folder under `.agents/skills/<skill-name>/`
 2. Add a `skill.md` file following the format of existing skills (YAML frontmatter + structured instructions)
 3. Reference the skill from `docs/supported-scenarios.md`
 4. Add an example prompt to `examples/sample-prompts.md`

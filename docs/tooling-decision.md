@@ -57,7 +57,7 @@ Is the task about writing or editing DAX / TMDL / PBIP files?
 ### Limitations
 - Context window smaller than Claude — less suitable for reviewing large models in one pass
 - Less capable of producing long-form structured documentation
-- In VS Code agent mode, Copilot reads `.claude/skills/` SKILL.md files with YAML frontmatter natively — the same skill format used throughout this repository
+- In VS Code agent mode, Copilot reads `.agents/skills/` SKILL.md files with YAML frontmatter natively — the same skill format used throughout this repository
 
 ### Configuration
 Configure the MCP server in `.vscode/mcp.json`. Copilot will discover and use MCP tools automatically in agent mode.
@@ -70,7 +70,7 @@ Configure the MCP server in `.vscode/mcp.json`. Copilot will discover and use MC
 - Large context window — can handle full model.bim files or many measures at once
 - Strong at producing structured, consistent documentation output
 - Excellent reasoning about complex DAX logic and model topology
-- Reads `.claude/skills/` SKILL.md files natively
+- Reads `.agents/skills/` SKILL.md files natively
 
 ### Limitations
 - Not embedded in the VS Code editor flow — better suited for review tasks than inline editing
@@ -80,7 +80,7 @@ Configure the MCP server in `.vscode/mcp.json`. Copilot will discover and use MC
 ### Configuration
 Reference skills directly in your prompt:
 ```
-Follow the instructions in .claude/skills/semantic-model-review/skill.md and review this model.
+Follow the instructions in .agents/skills/semantic-model-review/skill.md and review this model.
 ```
 
 ---

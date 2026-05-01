@@ -8,7 +8,7 @@ This document describes the tasks the **Power BI Agentic Harness** supports, whi
 
 **When to use:** Before releasing a new semantic model, after significant schema changes, when onboarding to an existing model, or when a model has unexplained report errors.
 
-**Skill:** `.claude/skills/semantic-model-review/skill.md`
+**Skill:** `.agents/skills/semantic-model-review/skill.md`
 
 **What the agent does:**
 - Lists all tables and classifies them as fact, dimension, or bridge
@@ -30,7 +30,7 @@ Review the semantic model and produce a structured report using the model review
 
 **When to use:** When reviewing a new set of measures, auditing an inherited model, troubleshooting incorrect values, or enforcing DAX standards across a team.
 
-**Skill:** `.claude/skills/dax-review/skill.md`
+**Skill:** `.agents/skills/dax-review/skill.md`
 
 **What the agent does:**
 - Lists all measures and their DAX expressions
@@ -52,7 +52,7 @@ Review all measures in the Sales table and flag any that use FILTER(ALL(...)) in
 
 **When to use:** Before publishing a report to end users, during a design review, or when accessibility or usability concerns are raised.
 
-**Skill:** `.claude/skills/report-review/skill.md`
+**Skill:** `.agents/skills/report-review/skill.md`
 
 **What the agent does:**
 - Reviews the report structure (pages, visuals, layout)
@@ -74,7 +74,7 @@ Review the Overview page and flag any visual design or accessibility issues.
 
 **When to use:** When setting up a new PBIP project, migrating from PBIX to PBIP, or validating that a project is source-control-ready.
 
-**Skill:** `.claude/skills/pbip-structure/skill.md`
+**Skill:** `.agents/skills/pbip-structure/skill.md`
 
 **What the agent does:**
 - Checks that the expected PBIP folder and file structure exists
@@ -94,7 +94,7 @@ Check the PBIP project structure and confirm it is ready for source control.
 
 **When to use:** When reviewing a model for consistency, onboarding a new contributor, or enforcing team standards after a merge.
 
-**Skill:** `.claude/skills/naming-conventions/skill.md`
+**Skill:** `.agents/skills/naming-conventions/skill.md`
 
 **What the agent does:**
 - Lists all tables, columns, and measures
@@ -113,7 +113,7 @@ Check all measure names in the model for naming convention violations.
 
 **When to use:** Before deploying a model or report to a production workspace, before a client demo, or at the end of a sprint.
 
-**Skill:** `.claude/skills/release-readiness/skill.md`
+**Skill:** `.agents/skills/release-readiness/skill.md`
 
 **What the agent does:**
 - Runs all review skills in sequence (model, DAX, report, naming, PBIP structure)
@@ -132,7 +132,7 @@ Run a full release readiness check and tell me if this model is safe to deploy.
 
 **When to use:** When a report contains one or more AppSource, organisational, or in-house custom visuals, before promoting the report to UAT or Production, or when a custom visual update has been applied.
 
-**Skill:** `.claude/skills/report-review/skill.md` (custom visual checks are included in the report review workflow)
+**Skill:** `.agents/skills/report-review/skill.md` (custom visual checks are included in the report review workflow)
 
 **What the agent does:**
 - Reads the report JSON and identifies all custom visuals by name and GUID
@@ -177,8 +177,8 @@ The following scenarios are **not supported** by this accelerator and must be ha
 - [docs/architecture.md](architecture.md)
 - [docs/governance.md](governance.md)
 - [docs/custom-visuals.md](custom-visuals.md)
-- [.claude/skills/semantic-model-review/skill.md](../.claude/skills/semantic-model-review/skill.md)
-- [.claude/skills/dax-review/skill.md](../.claude/skills/dax-review/skill.md)
-- [.claude/skills/report-review/skill.md](../.claude/skills/report-review/skill.md)
+- [.agents/skills/semantic-model-review/skill.md](../.agents/skills/semantic-model-review/skill.md)
+- [.agents/skills/dax-review/skill.md](../.agents/skills/dax-review/skill.md)
+- [.agents/skills/report-review/skill.md](../.agents/skills/report-review/skill.md)
 - Microsoft Learn: [Power BI Project (.pbip) overview](https://learn.microsoft.com/power-bi/developer/projects/projects-overview)
 - Microsoft Learn: [Power BI custom visuals overview](https://learn.microsoft.com/power-bi/developer/visuals/power-bi-custom-visuals)

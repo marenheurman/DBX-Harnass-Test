@@ -32,7 +32,7 @@ Use this order unless the user gives a more specific instruction:
 1. `README.md`
 2. `rules/safety-rules.md`
 3. `rules/prompting-rules.md`
-4. The relevant skill in `.claude/skills/`
+4. The relevant skill in `.agents/skills/`
 5. The matching rule file in `rules/`
 6. The matching template in `templates/`
 7. The matching example in `examples/`
@@ -55,13 +55,13 @@ Use this table to decide which files to load.
 
 | User Intent | Primary Skill | Supporting Rules | Output Template | Example |
 |---|---|---|---|---|
-| Review model structure or relationships | `.claude/skills/semantic-model-review/skill.md` | `rules/modeling-rules.md`, `rules/safety-rules.md`, `rules/prompting-rules.md` | `templates/model-review-template.md` | `examples/sample-model-review.md` |
-| Review DAX measures | `.claude/skills/dax-review/skill.md` | `rules/dax-rules.md`, `rules/safety-rules.md`, `rules/prompting-rules.md` | `templates/model-review-template.md` | `examples/sample-dax-review.md` |
-| Review report design or accessibility | `.claude/skills/report-review/skill.md` | `rules/report-rules.md`, `rules/safety-rules.md`, `rules/prompting-rules.md` | `templates/report-review-template.md` | `examples/sample-report-review.md` |
-| Validate PBIP project structure | `.claude/skills/pbip-structure/skill.md` | `rules/governance-rules.md`, `rules/safety-rules.md`, `rules/prompting-rules.md` | No dedicated template yet | `examples/sample-pbip-structure-review.md` |
-| Check naming conventions | `.claude/skills/naming-conventions/skill.md` | Naming rules inside skill, plus `rules/prompting-rules.md` | No dedicated template yet | `examples/sample-naming-conventions-review.md` |
-| Run full pre-release assessment | `.claude/skills/release-readiness/skill.md` | All relevant rule files | Consolidated report written by workflow | `examples/sample-release-readiness.md` |
-| Review custom visuals in a report | `.claude/skills/report-review/skill.md` | `rules/report-rules.md`, `docs/custom-visuals.md`, `rules/safety-rules.md` | `templates/report-review-template.md` | `examples/sample-report-review.md` |
+| Review model structure or relationships | `.agents/skills/semantic-model-review/skill.md` | `rules/modeling-rules.md`, `rules/safety-rules.md`, `rules/prompting-rules.md` | `templates/model-review-template.md` | `examples/sample-model-review.md` |
+| Review DAX measures | `.agents/skills/dax-review/skill.md` | `rules/dax-rules.md`, `rules/safety-rules.md`, `rules/prompting-rules.md` | `templates/model-review-template.md` | `examples/sample-dax-review.md` |
+| Review report design or accessibility | `.agents/skills/report-review/skill.md` | `rules/report-rules.md`, `rules/safety-rules.md`, `rules/prompting-rules.md` | `templates/report-review-template.md` | `examples/sample-report-review.md` |
+| Validate PBIP project structure | `.agents/skills/pbip-structure/skill.md` | `rules/governance-rules.md`, `rules/safety-rules.md`, `rules/prompting-rules.md` | No dedicated template yet | `examples/sample-pbip-structure-review.md` |
+| Check naming conventions | `.agents/skills/naming-conventions/skill.md` | Naming rules inside skill, plus `rules/prompting-rules.md` | No dedicated template yet | `examples/sample-naming-conventions-review.md` |
+| Run full pre-release assessment | `.agents/skills/release-readiness/skill.md` | All relevant rule files | Consolidated report written by workflow | `examples/sample-release-readiness.md` |
+| Review custom visuals in a report | `.agents/skills/report-review/skill.md` | `rules/report-rules.md`, `docs/custom-visuals.md`, `rules/safety-rules.md` | `templates/report-review-template.md` | `examples/sample-report-review.md` |
 | Build or add pages to a Power BI report using Python | `docs/pbix-layout-format.md` | `docs/model-manifest-template.json`, `docs/tooling-decision.md` | `templates/build-report-template.py` | — |
 
 ---
@@ -73,7 +73,7 @@ Use these terms consistently.
 | Preferred Term | Use It For | Avoid |
 |---|---|---|
 | Power BI Agentic Harness | Formal repository name | accelerator, toolkit, framework as the default name |
-| skill | A task-specific instruction file in `.claude/skills/` | workflow file, skill file as the default term |
+| skill | A task-specific instruction file in `.agents/skills/` | workflow file, skill file as the default term |
 | rule | A normative guidance file in `rules/` | policy note, checklist, standard doc when referring to these files specifically |
 | template | A structured output format in `templates/` | form, skeleton |
 | measure | Power BI measure | metric, calculation as the default term |

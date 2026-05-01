@@ -60,7 +60,7 @@ Agent findings are a starting point for human review, not a definitive verdict. 
 
 ## Change Control for This Accelerator
 
-Changes to the rules in this repository (`rules/`) must go through a pull request review involving at least one BI Lead and one Governance Lead. Changes to skills in `.claude/skills/` must include a corresponding update to `tests/` to validate the new or changed behaviour.
+Changes to the rules in this repository (`rules/`) must go through a pull request review involving at least one BI Lead and one Governance Lead. Changes to skills in `.agents/skills/` must include a corresponding update to `tests/` to validate the new or changed behaviour.
 
 ---
 

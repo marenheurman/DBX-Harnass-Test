@@ -37,31 +37,31 @@ Use this skill when:
 
 ### Step 1: Run Semantic Model Review
 
-Follow the full instructions in `.claude/skills/semantic-model-review/skill.md`.
+Follow the full instructions in `.agents/skills/semantic-model-review/skill.md`.
 
 Collect all findings. Record count of Critical, Warning, and Informational items.
 
 ### Step 2: Run DAX Review
 
-Follow the full instructions in `.claude/skills/dax-review/skill.md`.
+Follow the full instructions in `.agents/skills/dax-review/skill.md`.
 
 Collect all findings. Record count of Critical, Warning, and Informational items.
 
 ### Step 3: Run Report Review
 
-Follow the full instructions in `.claude/skills/report-review/skill.md`.
+Follow the full instructions in `.agents/skills/report-review/skill.md`.
 
 Collect all findings. Record count of Critical, Warning, and Informational items.
 
 ### Step 4: Run PBIP Structure Check
 
-Follow the full instructions in `.claude/skills/pbip-structure/skill.md`.
+Follow the full instructions in `.agents/skills/pbip-structure/skill.md`.
 
 Collect all findings. Record count of Critical, Warning, and Informational items.
 
 ### Step 5: Run Naming Convention Check
 
-Follow the full instructions in `.claude/skills/naming-conventions/skill.md`.
+Follow the full instructions in `.agents/skills/naming-conventions/skill.md`.
 
 Collect all findings. Record count of Critical, Warning, and Informational items.
 
