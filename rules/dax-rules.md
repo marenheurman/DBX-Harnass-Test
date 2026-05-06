@@ -28,8 +28,8 @@ Margin % = DIVIDE([Gross Profit], [Total Sales])
 Margin % = DIVIDE([Gross Profit], [Total Sales], 0)
 ```
 
-Use `BLANK()` as the alternate result when the measure is not applicable (most cases).
-Use `0` as the alternate result only when zero is a meaningful business value.
+- Use `BLANK()` as the alternate result when the measure is not applicable (most cases)
+- Use `0` as the alternate result only when zero is a meaningful business value
 
 ---
 
@@ -105,7 +105,7 @@ AVERAGEX(
 )
 ```
 
-When in doubt, test query performance using Performance Analyser in Power BI Desktop before finalising an iterator-based measure.
+When in doubt, test query performance using Performance Analyser in Power BI Desktop before finalising an iterator-based measure
 
 ---
 

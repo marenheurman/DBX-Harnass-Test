@@ -72,11 +72,14 @@ The agent must not apply changes to a semantic model, report, or PBIP file witho
 
 ### 6. Always Provide Severity Ratings
 
-Every finding must include a severity rating: **Critical**, **Warning**, or **Informational**. Findings without severities are ambiguous and harder for teams to prioritise.
+- Every finding must include a severity rating: **Critical**, **Warning**, or **Informational**
+- Findings without severities are ambiguous and harder for teams to prioritise
 
 ### 7. Do Not Over-Report
 
-Do not flag every stylistic difference as a problem. The goal is actionable findings, not an exhaustive list of minor observations. Apply the 80/20 rule — focus on the 20% of findings that account for 80% of the risk.
+- Do not flag every stylistic difference as a problem
+- The goal is actionable findings, not an exhaustive list of minor observations
+- Apply the 80/20 rule — focus on the 20% of findings that account for 80% of the risk
 
 ---
 
@@ -106,7 +109,7 @@ Agent: The relationship between Sales and ProductBudget appears to be inactive.
        Can you confirm whether this inactive relationship is intentional?
 ```
 
-Do not raise an ambiguous observation as a confirmed finding without checking.
+- Do not raise an ambiguous observation as a confirmed finding without checking
 
 ---
 
@@ -176,8 +179,7 @@ The agent must recommend escalation to human expert review when:
 - DAX measures use advanced patterns (TREATAS, INTERSECT, SUBSTITUTEWITHINDEX)
 - The report contains custom visuals that the agent cannot inspect
 - The agent's findings contradict each other (model logic is internally inconsistent)
-
-In all escalation cases, the agent should summarise what it found, note the specific reason for escalation, and provide its best-effort assessment rather than stopping entirely.
+- In all escalation cases, the agent should summarise what it found, note the specific reason for escalation, and provide its best-effort assessment rather than stopping entirely
 
 ---
 

@@ -28,7 +28,8 @@ Agent: I cannot determine the workspace classification for this environment.
        Please confirm: is this a Development, UAT, or Production workspace?
 ```
 
-Classification must be re-confirmed at the start of each session. The agent must not carry forward a previous session's classification as an assumption.
+- Classification must be re-confirmed at the start of each session
+- The agent must not carry forward a previous session's classification as an assumption
 
 ---
 
@@ -48,8 +49,7 @@ Production environments are **always write-protected** for AI agents. Agents mus
 - Triggering a dataset refresh in a Production workspace (manual, incremental, or scheduled)
 - Promoting artefacts through Power BI Deployment Pipelines into the Production stage
 - Modifying workspace settings, access roles, or capacity assignments in a Production workspace
-
-If asked to perform any of the above, the agent must refuse and clearly state that production changes require a human to perform the action manually via Power BI Desktop, the Power BI Service UI, or an authorised deployment pipeline.
+- If asked to perform any of the above, the agent must refuse and clearly state that production changes require a human to perform the action manually via Power BI Desktop, the Power BI Service UI, or an authorised deployment pipeline
 
 ### 2. No Credential Handling
 
@@ -58,8 +58,7 @@ Agents must never:
 - Echo or log any credential value found in environment variables or files
 - Write credential values to any file — including output files, logs, or documentation
 - Store credentials in `.env` files that are tracked by source control
-
-If a credential appears in a file being reviewed, the agent must flag it as a Critical security finding and redact the value in any output it produces.
+- If a credential appears in a file being reviewed, the agent must flag it as a Critical security finding and redact the value in any output it produces
 
 ### 3. No Autonomous Changes to Semantic Models
 
@@ -73,7 +72,8 @@ All proposed changes must be written as text output for the developer to review 
 
 ### 4. No Bulk Operations Without Confirmation
 
-Agents must not run bulk DAX queries, bulk metadata reads, or iterative operations across all partitions of a large model without confirming the scope with the user first. Large query operations can slow or lock a local model.
+- Agents must not run bulk DAX queries, bulk metadata reads, or iterative operations across all partitions of a large model without confirming the scope with the user first
+- Large query operations can slow or lock a local model
 
 ### 5. No Sharing of Sensitive Data
 

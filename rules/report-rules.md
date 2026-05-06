@@ -57,8 +57,16 @@ Choose the right visual type for the data being shown:
 
 **Additional rules:**
 - **Pie and donut charts are prohibited by default.** Do not use them.
-- The only permitted exception is a **maximum of 3 categories/slices** where a bar or stacked chart would add disproportionate visual overhead relative to the insight. Even then, a bar or stacked chart remains the preferred choice. A pie or donut is acceptable only if the developer explicitly documents why a bar chart is unsuitable for that specific visual and layout.
-- When a pie or donut is found during review, flag it as a **Warning** if it has 3 or fewer categories and no documented justification. If it has more than 3 categories, escalate it to **Critical**.
+- **Exception:** A pie or donut is permitted only when there are 3 or fewer categories/slices AND a bar or stacked chart would add disproportionate visual overhead. Even then, a bar or stacked chart remains the preferred choice.
+- A pie or donut used under the exception must be documented — the developer must explain why a bar chart is unsuitable for that specific visual and layout.
+
+**Pie/donut review severity:**
+
+| Condition | Severity |
+|---|---|
+| 3 or fewer categories, no documented justification | Warning |
+| More than 3 categories | Critical |
+
 - Stacked charts must not have more than 5–6 stack segments — more than this is unreadable
 - Do not use 3D visuals — they distort data perception
 - Do not use waterfall charts as a default "variance" chart unless the data is genuinely a waterfall decomposition
@@ -114,7 +122,13 @@ Custom visuals introduce additional considerations beyond standard built-in visu
 
 ### Approval by Environment
 
-See [docs/custom-visuals.md](../docs/custom-visuals.md) for the full environment-tier governance table. In summary: DEV permits all types for exploration; UAT permits Certified AppSource and Organisational (Uncertified requires documented approval); PROD permits Certified AppSource and Organisational only (In-house requires code review and sign-off).
+See [docs/custom-visuals.md](../docs/custom-visuals.md) for the full governance table.
+
+| Environment | Permitted Visual Types | Conditions |
+|---|---|---|
+| DEV | All types | For exploration only |
+| UAT | Certified AppSource, Organisational | Uncertified requires documented approval |
+| PROD | Certified AppSource, Organisational | In-house requires code review and sign-off |
 
 ### Usage Rules
 

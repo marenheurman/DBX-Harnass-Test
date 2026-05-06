@@ -83,7 +83,8 @@ Include the following governance checkpoints in your project delivery lifecycle:
 When the semantic model contains personal data, sensitive commercial data, or data subject to regulatory compliance (GDPR, HIPAA, etc.):
 
 - Ensure RLS is implemented and tested before any agent review — this ensures the agent can validate that RLS roles exist and are correctly defined, even though agent queries themselves bypass RLS
-- Agent DAX queries run without RLS — findings may include data that is restricted for end users. All agent output must be reviewed for sensitive values before sharing outside the development team
+- Agent DAX queries run without RLS — findings may include data that is restricted for end users
+- All agent output must be reviewed for sensitive values before sharing outside the development team
 - Do not share agent output files externally without reviewing them for sensitive values
 - Do not include example data rows containing real personal or commercial data in agent prompts
 
