@@ -41,7 +41,7 @@ For a machine-readable routing index, use [`docs/llm-index.json`](docs/llm-index
 | Validate PBIP project structure | `.agents/skills/pbip-structure/skill.md` |
 | Check naming conventions | `.agents/skills/naming-conventions/skill.md` |
 | Run full pre-release assessment | `.agents/skills/release-readiness/skill.md` |
-| Build report pages in a .pbix using Python | `docs/pbix-layout-format.md` |
+| Build report pages in a .pbix using Python | `.agents/skills/report-build/skill.md` |
 
 For the complete routing table including rules, templates, and examples, see [`docs/llm-orientation.md`](docs/llm-orientation.md).
 

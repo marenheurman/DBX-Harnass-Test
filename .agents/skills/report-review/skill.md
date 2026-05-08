@@ -24,6 +24,7 @@ Use this skill when:
 Do NOT use for:
 - Semantic model issues (use `semantic-model-review`)
 - DAX measure quality (use `dax-review`)
+- Building or generating report pages programmatically (use `report-build`)
 
 ---
 
