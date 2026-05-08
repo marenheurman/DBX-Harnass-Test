@@ -117,6 +117,7 @@
       "skill": ".agents/skills/report-build/skill.md",
       "primaryReference": "docs/pbix-layout-format.md",
       "supportingFiles": [
+        "docs/report-build-patterns.md",
         "docs/model-manifest-template.json",
         "docs/tooling-decision.md"
       ],

@@ -165,6 +165,40 @@ See [docs/custom-visuals.md](custom-visuals.md) for guidance on building and gov
 
 ---
 
+## Scenario 8: Report Build
+
+**When to use:** When building a new Power BI report from scratch, adding pages to an existing `.pbix`, editing visuals on an existing page, cloning a report with modifications, updating model objects (measures, columns, tables), or working with a PBIP source-controlled project.
+
+**Skill:** `.agents/skills/report-build/skill.md`
+
+**What the agent does:**
+
+The skill identifies the applicable build pattern and directs the agent to the detailed steps in `docs/report-build-patterns.md`:
+
+| Pattern | Scenario |
+|---------|----------|
+| **A** — MCP model build + Python ZIP | No model and no `.pbix` exist. Build the entire semantic model via MCP, then write report pages via Python. |
+| **B** — Python ZIP append | A `.pbix` exists. Add new pages without touching existing ones. |
+| **C** — Python ZIP modify | A `.pbix` exists. Edit a specific visual on an existing page. |
+| **D** — Python ZIP clone + edit | A `.pbix` exists. Create a copy with targeted changes applied. |
+| **E** — MCP update | Power BI Desktop is open. Add or change measures, columns, or tables only — no report page changes. |
+| **F** — PBIP + pbi-tools | A PBIP folder is available. Edit TMDL/JSON source files, then compile to `.pbix`. |
+
+Before any write, the agent reads `rules/safety-rules.md` and confirms the environment is Local Desktop Build context (not Production).
+
+**Example prompts:**
+```
+Build a CRM report from scratch with pages for pipeline overview and deal performance.
+```
+```
+Add a new summary page to the existing sales.pbix with three KPI cards.
+```
+```
+Add a Total Won Deals measure to the existing model in Desktop.
+```
+
+---
+
 ## Out of Scope
 
 The following scenarios are **not supported** by this accelerator and must be handled outside the agent workflow:

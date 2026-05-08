@@ -80,17 +80,48 @@ The Power BI Model MCP server exposes the running semantic model as a set of rea
 
 Do not assume `localhost` is portable across machines. Use a shared SQL host when available, or require each developer to set a local value for `POWERBI_WORKSPACE_CONNECTION` in their own environment.
 
-The server exposes MCP tools that allow the agent to:
+The MCP server exposes tools across two categories: **read** (safe for all environments) and **write** (requires environment confirmation before use — see `rules/safety-rules.md`).
+
+### Read Operations
 
 | Tool | Description |
 |------|-------------|
-| `list_tables` | Returns all tables in the model |
-| `list_measures` | Returns all measures with their DAX expressions |
-| `list_relationships` | Returns all relationships with cardinality and direction |
-| `list_columns` | Returns columns for a given table |
-| `run_dax_query` | Executes a DAX query and returns results |
-| `get_model_metadata` | Returns top-level model properties |
-| `list_partitions` | Returns partition definitions for a table |
+| `connection_operations → ListLocalInstances` | Discovers running Power BI Desktop instances and their AS connection strings |
+| `connection_operations → GetConnection` | Returns details of the current active connection |
+| `table_operations → List` | Returns all tables in the model |
+| `table_operations → Get` | Returns full definition of a single table |
+| `measure_operations → List` | Returns all measures with their DAX expressions and format strings |
+| `column_operations → List` | Returns columns for one or more tables |
+| `relationship_operations → List` | Returns all relationships with cardinality and direction |
+| `partition_operations → List` | Returns partition definitions for a table |
+| `database_operations → ExportTMDL` | Exports the full model as TMDL (YAML-like format) |
+| `database_operations → ExportTMSL` | Exports the full model as a TMSL JSON script |
+
+### Write Operations
+
+Write operations modify the live model in Power BI Desktop. Always confirm environment classification before using these.
+
+| Tool | Description |
+|------|-------------|
+| `connection_operations → Connect` | Connects the MCP server to a running Power BI Desktop instance |
+| `table_operations → Create` | Creates a new table (M expression or calculated DAX) with explicit column definitions |
+| `table_operations → Update` | Updates table properties |
+| `table_operations → Delete` | Deletes a table and optionally cascades to dependent objects |
+| `table_operations → Rename` | Renames a table |
+| `column_operations → Create` | Adds a column to an existing table |
+| `column_operations → Update` | Updates column properties (data type, format string, summarizeBy, etc.) |
+| `column_operations → Delete` | Removes a column |
+| `column_operations → Rename` | Renames a column |
+| `measure_operations → Create` | Creates a new DAX measure in a specified table |
+| `measure_operations → Update` | Updates a measure expression, format string, or folder |
+| `measure_operations → Delete` | Deletes a measure |
+| `measure_operations → Move` | Moves a measure to a different table |
+| `relationship_operations → Create` | Creates a new relationship between two tables |
+| `relationship_operations → Update` | Updates relationship properties (cardinality, filter direction, active state) |
+| `relationship_operations → Delete` | Removes a relationship |
+| `relationship_operations → Activate/Deactivate` | Toggles a relationship between active and inactive |
+| `partition_operations → Refresh` | Triggers a data refresh on one or more tables (Full, Calculate, DataOnly, etc.) |
+| `database_operations → Update` | Updates top-level model properties |
 
 ---
 
@@ -121,11 +152,11 @@ The `pbip-structure` skill reads and validates these files.
 
 ## Local vs Service Architecture
 
-| Context | Agent reads from | Agent writes to |
-|---------|-----------------|-----------------|
-| Local development (PBIP) | Filesystem (PBIP JSON/TMDL) | Proposed changes only — developer applies manually |
-| Power BI Desktop (live) | MCP server (Analysis Services) | Proposed changes only — developer applies in Desktop |
-| Power BI Service (cloud) | REST API (read-only) | Never — requires human action in Service |
+| Context | Agent reads from | Agent writes to | Notes |
+|---------|-----------------|-----------------|-------|
+| Local development (PBIP) | Filesystem (PBIP JSON/TMDL) | Proposed changes only — developer applies manually | Safe for all environments |
+| Power BI Desktop (live) | MCP server read operations | MCP server write operations (model only) + Python ZIP (report pages) | Write requires environment confirmation. MCP cannot write report pages — use Python ZIP for that. |
+| Power BI Service (cloud) | REST API (read-only) | Never — requires human action in Service UI | See safety-rules.md |
 
 ---
 
