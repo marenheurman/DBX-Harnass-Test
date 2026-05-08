@@ -1,7 +1,5 @@
 # LLM Orientation Guide
 
-## Purpose
-
 This document is the fastest way for an LLM or coding agent to understand how to use the Power BI Agentic Harness correctly.
 
 Read this file before interpreting the rest of the repository.
@@ -84,7 +82,7 @@ Use these terms consistently.
 | workspace | Power BI Service workspace | environment when the Power BI Service object is meant |
 | environment | Development, UAT, Production, local Desktop context | workspace when speaking broadly |
 
-If the model contains a table literally named `Date` or `Calendar`, keep that exact table name in code and findings.
+- If the model contains a table literally named `Date` or `Calendar`, keep that exact table name in code and findings.
 
 ---
 
@@ -100,7 +98,7 @@ When instructions conflict, apply this precedence order:
 6. The selected template
 7. Examples
 
-Never let an example override a safety or governance rule.
+- Never let an example override a safety or governance rule.
 
 ---
 
@@ -129,7 +127,7 @@ Do not assume any of the following without evidence:
 - A PBIP structure is valid because the top-level folders exist
 - A clean review means the project is defect-free
 
-If evidence is missing, state the uncertainty explicitly.
+- If evidence is missing, state the uncertainty explicitly.
 
 ---
 
@@ -144,7 +142,7 @@ When producing a structured review, prefer this sequence:
 5. Recommended next steps
 6. Open questions or required human confirmation
 
-Do not bury Critical findings below general commentary.
+- Do not bury Critical findings below general commentary.
 
 ---
 

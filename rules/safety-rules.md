@@ -49,7 +49,8 @@ Production environments are **always write-protected** for AI agents. Agents mus
 - Triggering a dataset refresh in a Production workspace (manual, incremental, or scheduled)
 - Promoting artefacts through Power BI Deployment Pipelines into the Production stage
 - Modifying workspace settings, access roles, or capacity assignments in a Production workspace
-- If asked to perform any of the above, the agent must refuse and clearly state that production changes require a human to perform the action manually via Power BI Desktop, the Power BI Service UI, or an authorised deployment pipeline
+
+If asked to perform any of the above, the agent must refuse and clearly state that production changes require a human to perform the action manually via Power BI Desktop, the Power BI Service UI, or an authorised deployment pipeline.
 
 ### 2. No Credential Handling
 
@@ -58,7 +59,8 @@ Agents must never:
 - Echo or log any credential value found in environment variables or files
 - Write credential values to any file — including output files, logs, or documentation
 - Store credentials in `.env` files that are tracked by source control
-- If a credential appears in a file being reviewed, the agent must flag it as a Critical security finding and redact the value in any output it produces
+
+If a credential appears in a file being reviewed, the agent must flag it as a Critical security finding and redact the value in any output it produces.
 
 ### 3. No Autonomous Changes to Semantic Models
 
@@ -103,7 +105,8 @@ Agents must never modify gateway or data source configurations. This includes:
 - Rebinding a dataset to a different data source or gateway
 - Changing the privacy level of a data source
 
-These operations can break data refresh across all reports and datasets that depend on the affected gateway or data source, including reports the agent is not aware of. All gateway and data source changes must be performed by a human with appropriate gateway administrator permissions.
+- These operations can break data refresh across all reports and datasets that depend on the affected gateway or data source, including reports the agent is not aware of.
+- All gateway and data source changes must be performed by a human with appropriate gateway administrator permissions.
 
 ---
 

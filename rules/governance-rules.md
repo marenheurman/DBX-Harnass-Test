@@ -16,7 +16,7 @@ All Power BI workspaces must be assigned a classification before any agent-assis
 | **User Acceptance Testing (UAT)** | Pre-release validation by business users | BI Lead approval required |
 | **Production (PROD)** | Live end-user-facing content | Change request and manager sign-off required |
 
-The workspace classification must be documented in the project governance plan before the Power BI Agentic Harness tools are used.
+- The workspace classification must be documented in the project governance plan before the Power BI Agentic Harness tools are used.
 
 ### Who Can Deploy to Each Environment
 
@@ -33,7 +33,9 @@ The workspace classification must be documented in the project governance plan b
 
 - All Power BI projects assisted by this accelerator must be version-controlled as PBIP projects in a Git repository
 - PBIX files must not be used as the primary versioned artefact
-- The default branch must be protected: no direct pushes; all changes via pull request
+- The default branch must be protected:
+  - No direct pushes
+  - All changes via pull request
 - Each pull request must pass the following before merge:
   - Agent-produced model or DAX review (if semantic model changed)
   - At least one human reviewer approval
@@ -64,7 +66,7 @@ Reason: [Why this warning is acceptable for this release]
 Expected resolution: [Sprint / Date when this will be addressed]
 ```
 
-This statement must be included in the release readiness report before go-live.
+- This statement must be included in the release readiness report before go-live.
 
 ---
 

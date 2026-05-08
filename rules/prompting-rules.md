@@ -17,7 +17,7 @@ Before starting a review, the agent should load context in this order unless the
 5. The relevant template
 6. The matching example, if one exists
 
-This avoids partial context loading and reduces the chance of the agent applying the wrong standard.
+- This avoids partial context loading and reduces the chance of the agent applying the wrong standard.
 
 See `docs/llm-orientation.md` for the full routing map.
 
@@ -30,7 +30,7 @@ Use the repository's preferred terms consistently. In particular:
 - Say **measure**, **fact table**, **dimension table**, and **Date table** unless a model uses a different literal object name
 - Distinguish **workspace** from **environment**
 
-Inconsistent terminology makes outputs harder to compare and makes automated review less reliable.
+- Inconsistent terminology makes outputs harder to compare and makes automated review less reliable.
 
 ### 2. Announce What Skill is Being Used
 
@@ -179,7 +179,8 @@ The agent must recommend escalation to human expert review when:
 - DAX measures use advanced patterns (TREATAS, INTERSECT, SUBSTITUTEWITHINDEX)
 - The report contains custom visuals that the agent cannot inspect
 - The agent's findings contradict each other (model logic is internally inconsistent)
-- In all escalation cases, the agent should summarise what it found, note the specific reason for escalation, and provide its best-effort assessment rather than stopping entirely
+
+In all escalation cases, the agent should summarise what it found, note the specific reason for escalation, and provide its best-effort assessment rather than stopping entirely.
 
 ---
 

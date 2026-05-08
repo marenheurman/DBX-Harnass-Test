@@ -3,19 +3,32 @@ name: rule-structure
 description: Use when reviewing or preparing rule and governance documents for inclusion in the agentic harness. Converts long, unstructured prose into explicit, structured formats to improve human scanability and AI-agent parsing reliability.
 ---
 
+## What This Skill Does
+
+- **Does:** Converts prose-heavy rule and governance documents into structured formats (tables, numbered steps, bullet lists) and enforces uniform document layout.
+- **When:** A rule file needs hardening for reliable AI-agent consumption, or document layout is inconsistent.
+- **Requires:** Access to files in `rules/`, agent-consumed `docs/` files (listed in `docs/llm-index.json`), and all skill files in `.agents/skills/`.
+- **Produces:** A normalised document, a change log, and an ambiguity register per file processed.
+- **Does NOT:** Write, add, remove, or reorder rules. Does not evaluate whether rules are correct or well-designed.
+
+# Rule Structure
+
 ## Overview
 
-Analyse rule and governance documents and convert long, unstructured prose into explicit structured formats such as numbered steps, tables, bullet lists, and code blocks.
- 
-The goal is to make rules, examples, and exceptions clearly distinguishable for both human readers and AI agents.
+Analyse rule and governance documents and convert long, unstructured prose into explicit structured formats such as numbered steps, tables, bullet lists, and code blocks. The goal is to make rules, examples, and exceptions clearly distinguishable for both human readers and AI agents.
 
-- This skill restructures presentation only and must never change meaning, intent, or scope.
+**Core principle:** Structured formats produce more consistent and predictable AI-agent behaviour than free-form prose. This skill restructures presentation only and must never change meaning, intent, or scope.
 
 ---
 
-## Core Principle
+## Atomic Rule Principle
 
-Structured formats (tables, lists, steps) produce more consistent and predictable AI-agent behaviour than free-form prose.
+When restructuring:
+
+- Each bullet list item must contain one independent rule only
+- Each table row must represent one independent constraint, condition, definition, or prohibition
+- Do not combine unrelated constraints into one structure item
+- Do not split rules unless boundaries are explicitly present in the original text
 
 ---
 
@@ -27,23 +40,50 @@ Use this skill when:
 - Fast human scanning and reliable agent parsing are required
 - Preparing or maintaining safety rules, governance policies, or standards
 
+---
+
+## When Not to Use
+
 Do not use this skill when:
 - Writing, adding, or removing rules
 - Changing rule semantics, intent, or emphasis
 - Summarisation, compression, or paraphrasing
 - Evaluating correctness or quality of rules
+- Rewriting for tone or simplifying language
+- Reorganising document hierarchy
+- Inferring implied rules
 
 ---
 
-## Non-Goals
+## Standard Layouts
 
-This skill does not:
-- Rewrite for tone
-- Simplify language
-- Shorten content
-- Improve grammar unless required for formatting
-- Reorganise document hierarchy
-- Infer implied rules
+### Skill File Layout
+
+All skill files in this harness must follow this section order. Flag deviations when processing skill files.
+
+| Position | Section | Format | Required |
+|---|---|---|---|
+| 1 | YAML frontmatter | `---` block with `name`, `description` | Always |
+| 2 | `## What This Skill Does` | Bullet list (Does / When / Requires / Produces / Does NOT) | Always |
+| 3 | `# [Skill Title]` | H1 heading, matches skill name | Always |
+| 4 | `## Overview` | Short prose + bold core principle | Always |
+| 5 | `## When to Use` | Bullet list | Always |
+| 6 | `## When Not to Use` | Bullet list with redirects | Always |
+| 7 | `## [Skill] Workflow` | Numbered steps (H3 per step) | Always |
+| 8 | Reference material | Tables (severity definitions, scoring, etc.) | When applicable |
+| 9 | `## Examples` | Numbered, Before/After format | When applicable |
+
+### Rule / Governance Document Layout
+
+All files in `rules/` and agent-consumed `docs/` files must follow this section order where applicable. Flag deviations.
+
+| Position | Section | Format | Required |
+|---|---|---|---|
+| 1 | `# [Document Title]` | H1 heading | Always |
+| 2 | Purpose statement | 1–2 sentences: what this document governs | Always |
+| 3 | Rule sections | H2 per topic; rules as bullet lists or tables | Always |
+| 4 | Examples or illustrations | Code blocks or Before/After pairs | When applicable |
+| 5 | Exceptions or caveats | Bullet list or table | When applicable |
 
 ---
 
@@ -51,81 +91,184 @@ This skill does not:
 
 ### Step 1: Inspect Files
 
-Read all files in `rules/` and `docs/governance.md`, and go through each one.
+Read all files in the following locations and process each one:
+
+- All files in `rules/` — apply **Rule / Governance Document Layout**
+- All files in `docs/` that are consumed by AI agents — check `docs/llm-index.json` for the current list — apply **Rule / Governance Document Layout**
+- All skill files in `.agents/skills/` — one `skill.md` per subdirectory — apply **Skill File Layout**
+- If files have been added to any of these locations that are not yet listed in the index, include them
 
 Treat every section independently.
 
 ### Step 2: Detect Prose
+
 A section must be selected for restructuring when ANY of the following conditions are met:
-- More than 70% of the section content is prose paragraphs
-- Lists contain embedded multi-sentence prose
-- Rules, examples, and exceptions are mixed within a single paragraph
-- Structural markers are inconsistent or incomplete (e.g. inline numbering, semicolons used as list separators, partial bullet lists)
 
-- This detection rule is mandatory and not discretionary.
-- If none of the above conditions are met, leave the section unchanged and move to the next.
+| Condition | Observable signal |
+|---|---|
+| Pure prose | The section contains no tables, no numbered lists, and no bullet lists |
+| Overloaded list items | A list exists but one or more items contain two or more complete sentences |
+| Long sentences | Any sentence exceeds ~30 words (approximately two printed lines). Long sentences reduce agent parsing reliability |
+| Mixed content in one paragraph | Rules, examples, and exceptions appear in a single continuous paragraph with no structural separation |
+| Inconsistent structural markers | Inline numbering ("1) ... 2) ..."), semicolons used as list separators, or a partial bullet list where some items are bulleted and others are inline prose |
+| Layout non-conformance | The document does not follow the applicable Standard Layout defined in this skill |
 
-### Step 3: Determine Role
-Determine whether the prose primarily describes:
-- A sequence of actions or steps
-- Independent rules or constraints
-- Properties, attributes, or comparisons
-- Absolute prohibitions or safety rules
-- Examples or illustrations
-- Definitions or terms
-- Conditional rules (if X then Y)
-- A mix of the above types
+### Decision Table
 
-- Do not interpret meaning beyond what is required to determine structure.
+| Detection Result | Action |
+|---|---|
+| Pure prose detected | Restructure |
+| Long sentence detected | Split structurally |
+| Mixed content detected | Split by explicit type boundaries |
+| Meaning risk detected | Preserve original |
+| Ambiguous structure detected | Record in Ambiguity Register |
+| Layout mismatch detected | Normalize layout |
 
-### Step 4: Apply Structure
-Apply the following mandatory mapping:
-- Sequence or process → Numbered list
-- Independent rules or constraints → Bullet list
-- Properties or comparisons → Table
-- Absolute prohibitions or safety rules → Table (rule | description)
-- Examples or illustrations → Code block
-- Definitions or terms → Table (term | definition)
-- Conditional rules → Table (condition | consequence)
-- Mixed sections → Split into subsections per type, then apply the mapping to each subsection independently
+Mandatory rules:
 
-- The structure must reflect the role of the content.
+- This detection process is mandatory and not discretionary
+- If none of the above conditions are met, leave the section unchanged
+- Do not infer hidden structure that is not explicitly present
 
-### Step 5: Preserve Meaning
+### Step 3: Apply Structure
+
+For each qualifying section, match its content to the appropriate structure.
+
+Mandatory mapping:
+
+| Content Type | Required Structure |
+|---|---|
+| Sequence or process | Numbered list |
+| Independent rules or constraints | Bullet list |
+| Properties or comparisons | Table |
+| Absolute prohibitions or safety rules | Table (rule \| description) |
+| Examples or illustrations | Code block |
+| Definitions or terms | Table (term \| definition) |
+| Conditional rules | Table (condition \| consequence) |
+| Long sentences | Split structurally, then apply appropriate format |
+| Layout non-conformance | Normalize to Standard Layout |
+| Mixed sections | Split only when type boundaries are explicit |
+
+#### Long Sentence Splitting Rules
+
+Split long sentences ONLY at explicit separators already present in the original text:
+
+- "and"
+- "or"
+- Semicolons
+- Inline numbering
+- Commas separating independent clauses
+
+Do not:
+
+- Infer implied boundaries
+- Rewrite wording
+- Reorder constraints
+- Introduce new grouping logic
+
+#### Mixed Section Rules
+
+- Split mixed sections only when boundaries between content types are explicit
+- If subsection boundaries are ambiguous, preserve the original section
+- Record unresolved ambiguity in the Ambiguity Register
+- Never infer unstated subsection boundaries
+
+#### Layout Normalization Rules
+
+When layout non-conformance is detected:
+
+- Reorder sections to match the applicable Standard Layout
+- Add missing mandatory sections as placeholders only
+- Preserve all existing content and ordering within sections
+
+#### Placeholder Rules
+
+Placeholders:
+
+- Must contain only the exact comment: `<!-- TODO: fill -->`
+- Must not contain inferred or generated content
+- Must not be interpreted as existing policy or guidance
+
+### Step 4: Preserve Meaning
+
 When restructuring:
+
 - Do not change wording unless required for formatting
-- Do not split a single logical rule into multiple independent rules unless the original prose already expresses multiple distinct constraints
+- Do not split a single logical rule into multiple independent rules unless explicit boundaries already exist
 - Do not merge separate rules into one
 - Do not remove exceptions or caveats
 - Preserve absolute versus conditional language
-- Light structural interpretation (such as separating clearly enumerated constraints, or extracting explicitly stated prohibitions into rows) is permitted when wording is explicit and non-conditional
+- Preserve ordering when ordering contributes to meaning
+- Light structural interpretation is permitted only when wording is explicit and non-conditional
 
-- The transformation must be structural only.
+#### High-Risk Sections
 
-> **Mandatory attention areas:** Apply extra care to the *Absolute Prohibitions* section in `safety-rules.md` and the *Core Governance Principles* section in `docs/governance.md`. These sections contain absolute prohibitions where structural changes carry the highest risk of altering perceived meaning.
+Apply heightened review to any section containing:
 
-### Step 6: Output
-- Replace only the sections identified as prose-heavy
-- Preserve file structure, headings, ordering, and existing structured content
+- "must never"
+- "is prohibited"
+- "under no circumstances"
 
-For each file processed, produce the following three deliverables:
+Flag the following files for additional caution:
 
-#### Normalized Document
-The updated file with all qualifying prose-heavy sections replaced by explicit structured formats using Markdown lists, tables, and code blocks.
+| File | Section |
+|---|---|
+| `rules/safety-rules.md` | Absolute Prohibitions |
+| `docs/governance.md` | Core Governance Principles |
 
-#### Change Log
-Record every transformation applied using the following schema:
+If restructuring introduces semantic uncertainty:
+
+- Preserve the original section unchanged
+- Record the ambiguity in the Ambiguity Register
+
+### Step 5: Output
+
+Output requirements:
+
+- Replace only sections identified as qualifying in Step 2
+- Preserve existing headings, ordering, and already-structured content
+- Deliver artefacts inline in this order:
+  1. Normalized Document
+  2. Change Log
+  3. Ambiguity Register
+
+Do not create separate files unless explicitly instructed.
+
+#### Deliverables
+
+##### Normalized Document
+
+The updated document with qualifying prose-heavy sections replaced using structured Markdown formats.
+
+##### Change Log
 
 | Section | Original Form | New Form | Notes |
 |---|---|---|---|
 | *(section name)* | *(e.g. Prose)* | *(e.g. Table (rule \| description))* | *(e.g. Preserved conditional wording)* |
 
-#### Ambiguity Register
-For sections where structure choice was unclear, document using the following schema:
+##### Ambiguity Register
 
 | Section | Ambiguity | Structure Chosen | Reason |
 |---|---|---|---|
 | *(section name)* | *(e.g. Mixed sequence and constraints)* | *(e.g. Numbered list)* | *(e.g. Sequence was dominant)* |
+
+### Step 6: Validate and Confirm
+
+#### Validation Checklist
+
+- [ ] Every in-scope section evaluated against Step 2 criteria
+- [ ] Every qualifying section restructured or logged
+- [ ] No semantic meaning altered
+- [ ] Change Log complete
+- [ ] Ambiguity Register complete
+- [ ] Existing structured content preserved
+- [ ] No inferred rules introduced
+- [ ] Layout normalization completed where required
+
+If any validation item cannot be confirmed:
+
+- State explicitly which condition failed
+- Explain why confirmation could not be completed
 
 ---
 
@@ -133,27 +276,12 @@ For sections where structure choice was unclear, document using the following sc
 
 When steps conflict, resolve in this order:
 
-1. **Failure Conditions** — if restructuring requires semantic interpretation beyond what is explicitly stated, leave the section unchanged
-2. **Step 5 (Preserve Meaning)** — always overrides structure choice; meaning is non-negotiable
-3. **Step 4 (Apply Structure)** — mandatory when not overridden by Step 5
-4. **Ambiguity Register** — when none of the above resolves the conflict, document the ambiguity and the choice made
-
----
-
-## Agent Behavior Rules
-- Structure only; never introduce or remove meaning
-- No semantic changes; intent and scope must remain identical
-- No rule merging; do not split a single logical rule unless the original prose already expresses multiple distinct constraints
-- No removal of exceptions or caveats
-- Explicit structure is mandatory when detection criteria are met
-- Ambiguity must be surfaced explicitly, never guessed
-- Primary objective is AI-agent behaviour consistency, not stylistic improvement
-
----
-
-## Failure Conditions
-- If restructuring requires interpretation of meaning, leave the section unchanged, add it to the Ambiguity Register, and explain why restructuring was unsafe
-- If rule boundaries cannot be determined reliably, leave the section unchanged, add it to the Ambiguity Register, and explain why boundaries could not be established
+| Priority | Rule |
+|---|---|
+| 0 | Explicit user instruction overrides layout preference unless meaning changes |
+| 1 | Preserve Meaning overrides all structure choices |
+| 2 | Apply Structure mappings when meaning is preserved |
+| 3 | Record unresolved ambiguity in the Ambiguity Register |
 
 ---
 
@@ -173,7 +301,9 @@ Agents must never publish to a production workspace, and they must never delete 
 | Never delete or overwrite data | Explicit user approval is required before any destructive action |
 | Never embed credentials | Secrets and credentials must not appear in any agent output |
 
-**Change Log entry:** Absolute Prohibitions | Prose | Table (rule \| description) | Three distinct prohibitions identified and separated
+| Section | Original Form | New Form | Notes |
+|---|---|---|---|
+| Absolute Prohibitions | Prose | Table (rule \| description) | Three distinct prohibitions separated |
 
 ---
 
@@ -189,28 +319,69 @@ All measures must use DIVIDE instead of the division operator to prevent divide-
 - Measure names must be written in sentence case and must not include the table name as a prefix
 - Hardcoded values must not appear inside measure expressions
 
-**Change Log entry:** DAX Measure Standards | Prose | Bullet list | Three independent constraints; no sequence implied
+| Section | Original Form | New Form | Notes |
+|---|---|---|---|
+| DAX Measure Standards | Prose | Bullet list | Three independent constraints; no sequence implied |
 
 ---
 
-### Example 3: Failure — Section Left Unchanged (Ambiguity Register)
+### Example 3: Failure — Section Left Unchanged
 
 **Before:**
 
 The governance model should reflect the organisation's data culture, and where relevant, align with existing enterprise architecture decisions. Exceptions may apply in regulated environments.
 
-**Situation:** The sentence contains a constraint ("align with enterprise architecture"), a conditional ("where relevant"), and an exception ("regulated environments") — but the rule boundary between the constraint and the exception is unclear. Restructuring would require interpreting what qualifies as a "regulated environment," which goes beyond structural analysis.
-
 **Action:** Section left unchanged.
-
-**Ambiguity Register entry:**
 
 | Section | Ambiguity | Structure Chosen | Reason |
 |---|---|---|---|
-| Governance Model Alignment | Rule boundary between constraint and exception unclear; "regulated environments" requires interpretation | None — section left unchanged | Restructuring would require meaning interpretation; graceful degradation applied |
+| Governance Model Alignment | Rule boundary between constraint and exception unclear | None — section left unchanged | Restructuring would require semantic interpretation |
 
 ---
 
-## Why It Matters
-The harness is consumed by AI agents as much as by humans.
-Structured text gives agents clear signals about what is a rule, what is an example, and what is an exception. Free-form prose obscures these distinctions and leads to inconsistent agent behaviour. This skill exists to eliminate that ambiguity.
+### Example 4: Long Sentence → Bullet List
+
+**Before:**
+
+The agent must validate that all relationships use single-direction cross-filtering, that no bidirectional relationships exist without documented justification, and that inactive relationships have a corresponding USERELATIONSHIP measure defined in the model.
+
+**After:**
+
+- All relationships must use single-direction cross-filtering
+- Bidirectional relationships must not exist without documented justification
+- Inactive relationships must have a corresponding `USERELATIONSHIP` measure defined in the model
+
+| Section | Original Form | New Form | Notes |
+|---|---|---|---|
+| Relationship Rules | Long sentence (38 words) | Bullet list | Three constraints extracted; no meaning change |
+
+---
+
+### Example 5: Layout Non-Conformance
+
+**Before (file structure):**
+
+```
+# Modeling Rules
+## Fact Table Rules
+## Dimension Table Rules
+## Relationship Rules
+```
+
+**Issue:** Missing mandatory "Purpose statement" (position 2 in Rule / Governance Document Layout).
+
+**After:**
+
+```
+# Modeling Rules
+<!-- TODO: fill -->
+## Fact Table Rules
+## Dimension Table Rules
+## Relationship Rules
+```
+
+| Section | Original Form | New Form | Notes |
+|---|---|---|---|
+| Modeling Rules | Missing purpose statement | Added placeholder | Layout non-conformance; content not altered |
+
+

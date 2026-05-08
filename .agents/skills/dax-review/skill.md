@@ -3,6 +3,14 @@ name: dax-review
 description: Use when reviewing DAX measures for correctness, performance, safety, and adherence to team standards. Invoke during model development, before release, or when investigating incorrect measure values.
 ---
 
+## What This Skill Does
+
+- **Does:** Reviews DAX measures in a Power BI semantic model for correctness, performance, safety, and adherence to team standards.
+- **When:** A developer asks for a DAX review, when measure values appear incorrect, or before releasing a model to production.
+- **Requires:** An open model in Power BI Desktop (via MCP) or PBIP model files on disk.
+- **Produces:** A structured findings report with severity ratings, covering division-by-zero risks, iterator performance, `CALCULATE` misuse, and team convention violations.
+- **Does NOT:** Rewrite or fix measures — proposes corrections for the developer to apply. Does not review report visuals, model relationships, or file structure — use the `report-review`, `semantic-model-review`, or `pbip-structure` skill for those.
+
 # DAX Review
 
 ## Overview
@@ -22,7 +30,10 @@ Use this skill when:
 - Onboarding to an inherited model with unknown measure quality
 - Running a release readiness check
 
-Do NOT use for:
+---
+
+## When Not to Use
+
 - Relationship and topology issues (use `semantic-model-review`)
 - Report visual layout (use `report-review`)
 - Naming convention checks (use `naming-conventions`)

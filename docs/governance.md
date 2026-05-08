@@ -1,7 +1,5 @@
 # Governance
 
-## Purpose
-
 This document defines the governance principles that apply when using AI agents in Power BI development. It is intended for BI leads, architects, and anyone responsible for the quality, security, and reliability of Power BI solutions in an enterprise environment.
 
 These principles override any default agent behaviour. If there is a conflict between what an agent would do by default and what is stated here, the rules in this document take precedence.
@@ -60,7 +58,8 @@ Agent findings are a starting point for human review, not a definitive verdict. 
 
 ## Change Control for This Accelerator
 
-Changes to the rules in this repository (`rules/`) must go through a pull request review involving at least one BI Lead and one Governance Lead. Changes to skills in `.agents/skills/` must include a corresponding update to `tests/` to validate the new or changed behaviour.
+- Changes to the rules in this repository (`rules/`) must go through a pull request review involving at least one BI Lead and one Governance Lead.
+- Changes to skills in `.agents/skills/` must include a corresponding update to `tests/` to validate the new or changed behaviour.
 
 ---
 

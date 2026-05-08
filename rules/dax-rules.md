@@ -105,7 +105,7 @@ AVERAGEX(
 )
 ```
 
-When in doubt, test query performance using Performance Analyser in Power BI Desktop before finalising an iterator-based measure
+- When in doubt, test query performance using Performance Analyser in Power BI Desktop before finalising an iterator-based measure
 
 ---
 
