@@ -10,14 +10,12 @@
 
 ## Summary
 
-| Review Area | Critical | Warnings | Informational |
+| Review Section | Critical | Warnings | Informational |
 |---|---|---|---|
-| Page Structure | | | |
-| Visual Types | | | |
-| Slicer and Filter Design | | | |
-| Accessibility | | | |
-| Theme and Branding | | | |
-| Performance | | | |
+| Visual Design & Effectiveness | | | |
+| Accessibility & Readability | | | |
+| Interaction & Navigation Design | | | |
+| Data Integrity & Context | | | |
 | **TOTAL** | | | |
 
 **Overall Verdict:** [BLOCKED / READY WITH WARNINGS / READY]
@@ -35,91 +33,61 @@
 
 ---
 
-## Page-by-Page Review
+## Section 1: Visual Design & Effectiveness
 
-### Page: [Page Name]
+*Chart types, layout, density, spacing, canvas consistency, and theme.*
 
-**Purpose of this page:** [One sentence describing what this page communicates]
-**Number of visuals:** [N]
-**Page has title:** [Yes / No]
-
-#### Visual Inventory
-
-| Visual Title | Visual Type | Measures Used | Notes |
+| Page | Finding | Severity | Suggested Action |
 |---|---|---|---|
-| [Title] | Bar chart / Card / Matrix / etc. | [Measure names] | |
-
-#### Findings for This Page
-
-*(List findings specific to this page using the structure below)*
+| | | | |
 
 ---
 
-## Critical Findings
+## Section 2: Accessibility & Readability
 
-*List all Critical findings across all pages.*
+*Visual titles, alt text, colour contrast, font sizes, and non-colour status encoding.*
 
-None.
+| Page | Finding | Severity | Suggested Action |
+|---|---|---|---|
+| | | | |
 
 ---
+
+## Section 3: Interaction & Navigation Design
+
+*Slicer count and defaults, cross-filter behaviour, drillthrough paths, and navigation labels.*
+
+| Page | Finding | Severity | Suggested Action |
+|---|---|---|---|
+| | | | |
+
+---
+
+## Section 4: Data Integrity & Context
+
+*BLANK/ERROR states, totals correctness, units/currency/time labelling, refresh timestamp, and custom visual governance.*
+
+| Page | Finding | Severity | Suggested Action |
+|---|---|---|---|
+| | | | |
+
+---
+
+## Detail — Critical Findings
+
+*Expand each Critical row from the tables above here with full context.*
 
 ### [Finding Title]
 
 **Page:** [Page name]
-**Visual:** [Visual title or description]
-**Detail:**
-[Describe the issue clearly. State what was found, why it is a problem, and the impact on the user.]
-
-**Suggested action:**
-[Specific recommendation for the developer.]
-
----
-
-## Warnings
-
-### [Warning Title]
-
-**Page:** [Page name]
-**Visual:** [Visual or scope]
-**Detail:** [Description]
-**Suggested action:** [Recommendation]
-
----
-
-## Informational
-
-### [Observation Title]
-
-**Page:** [Page name]
-**Detail:** [Description]
-
----
-
-## Accessibility Checklist
-
-| Check | Status | Notes |
-|---|---|---|
-| All visuals have titles | ✅ / ⚠️ / ❌ | |
-| All images have alt text | ✅ / ⚠️ / ❌ | |
-| Colour is not the only encoding | ✅ / ⚠️ / ❌ | |
-| Minimum font size met (10pt) | ✅ / ⚠️ / ❌ | |
-| No red/green only indicators | ✅ / ⚠️ / ❌ | |
-| Custom theme applied | ✅ / ⚠️ / ❌ | |
+**Section:** [Section name]
+**Detail:** [What was found, why it matters, impact on users.]
+**Suggested action:** [Specific remedy.]
 
 ---
 
 ## Recommended Next Steps
 
-1. [Action item 1]
-2. [Action item 2]
-3. [Action item 3]
-
----
-
-## Sign-Off
-
-| Role | Name | Date | Accepted? |
-|---|---|---|---|
-| Reviewing Developer | | | |
-| BI Lead | | | |
-| Business Stakeholder | | | |
+1. [Highest-priority action — resolve all Critical findings before release]
+2. [Address Warning-level findings before UAT or production]
+3. [Informational improvements for future iterations]

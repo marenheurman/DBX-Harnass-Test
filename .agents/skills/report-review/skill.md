@@ -42,70 +42,80 @@ Identify:
 - Page names and order
 - Visual types and counts per page
 
-### Step 2: Review Each Page
+### Step 2: Review by Section
 
-For each page, apply the following checks:
+Apply checks across all four sections below. For each finding, record the page name, section, severity, and a specific suggested action.
 
-#### Structure and Layout
+#### Section 1: Visual Design & Effectiveness
 
-| Check | Rule | Severity |
-|-------|------|----------|
-| Page has a clear title | Every page must have a visible title text box | Warning |
-| Logical visual grouping | Related visuals should be visually grouped (proximity or backgrounds) | Informational |
-| Visual count | More than 8–10 visuals per page is typically too dense | Warning |
-| Consistent canvas size | All pages should use the same canvas size unless intentionally different (e.g. tooltip pages) | Informational |
-| Hidden pages labelled as such | Hidden pages (tooltip, drillthrough) must be clearly labelled in their page name | Informational |
-
-#### Visual Type Checks
+Assess whether visuals are appropriate for their data and well-organised on the page.
 
 | Check | Rule | Severity |
 |-------|------|----------|
-| Pie or donut chart with more than 3 categories/slices | Prohibited — exceeds the maximum permitted slice count | Critical |
-| Pie or donut chart with 3 or fewer categories/slices | Strongly discouraged; flag unless the developer has documented why a bar chart is unsuitable | Warning |
-| Multi-row card with one value | Use card instead of multi-row card for single KPIs | Informational |
-| Table visual with more than 15 columns | Unlikely to be readable on standard screens | Warning |
-| Map visual present | Flag for governance review — maps may require Bing Maps data-sharing disclosure | Warning |
-| Scatter chart axes unlabelled | Both axes on scatter charts must have clear labels | Warning |
+| Page has a clear title | Every page must have a visible title text box or descriptive header | Warning |
+| Visual count per page | More than 8–10 visuals per page is typically too dense for comprehension | Warning |
+| Logical visual grouping | Related visuals should be grouped by proximity or background containers | Informational |
+| Consistent canvas size | All pages should use the same canvas size unless intentionally different (e.g. tooltip/drillthrough pages) | Informational |
+| Pie or donut chart with >3 slices | Prohibited — exceeds readable slice count | Critical |
+| Pie or donut chart with ≤3 slices | Strongly discouraged; flag unless a bar chart is demonstrably unsuitable | Warning |
+| Multi-row card with a single value | Use a single-value card instead | Informational |
+| Table visual with >15 columns | Unlikely to fit on standard screens without horizontal scrolling | Warning |
+| Scatter chart axes unlabelled | Both axes must have clear, descriptive labels | Warning |
+| No corporate theme applied | Flag if the default Power BI theme is in use with no customisation | Informational |
 
-#### Slicer and Filter Checks
+#### Section 2: Accessibility & Readability
 
-| Check | Rule | Severity |
-|-------|------|----------|
-| Too many slicers on one page | More than 4–5 slicers typically reduces clarity | Warning |
-| Slicer with no default selection impact | Verify that an empty slicer does not return all data unexpectedly | Informational |
-| Cross-filter interactions not configured | All visual interactions should be intentionally configured, not left as default | Warning |
-
-#### Accessibility Checks
+Ensure the report is usable by the full audience, including those with visual or motor impairments.
 
 | Check | Rule | Severity |
 |-------|------|----------|
-| Visuals missing titles | Every chart or table must have a visible or screen-reader-accessible title | Warning |
-| Images missing alt text | Any image visual must have alt text configured | Warning |
-| Colour-only encoding | Information should not be conveyed by colour alone (consider patterns or labels) | Warning |
-| Low contrast colours | Text and background colours must meet WCAG AA contrast ratio (4.5:1 for normal text) | Warning |
-| Font size below 10pt | Small text is inaccessible on standard screens | Warning |
+| Visuals missing meaningful titles | Every chart, table, and card must have a visible or screen-reader-accessible title | Warning |
+| Images missing alt text | Any image visual must have descriptive alt text configured | Warning |
+| Colour is the only encoding | Status or categories must not be conveyed by colour alone — add labels, icons, or patterns | Warning |
+| Colour contrast below WCAG AA | Text and background must achieve a 4.5:1 contrast ratio | Warning |
+| Font size below 10pt | All readable text must be 10pt or larger | Warning |
+| Red/green only indicators | Red and green alone are indistinguishable for colour-blind users — add a secondary encoding | Warning |
 
-#### Data Accuracy Checks
+#### Section 3: Interaction & Navigation Design
+
+Verify that slicers, filters, and cross-visual interactions are configured intentionally and behave predictably.
 
 | Check | Rule | Severity |
 |-------|------|----------|
-| Visuals displaying BLANK or ERROR | Flag any visual where sample data shows blank or error states that are unexpected | Critical |
-| Totals appearing where they should not | Tables with incorrect subtotals or grand totals not matching business expectations | Critical |
-| Date slicer defaulting to maximum range | Verify that large date ranges do not cause excessive query load on first render | Informational |
+| More than 4–5 slicers on one page | Exceeds the threshold that typically reduces clarity | Warning |
+| Slicer default causes blank view | An empty or unset slicer that hides all data by default creates a confusing first impression | Warning |
+| Cross-filter interactions left as default | All cross-visual interactions must be explicitly configured | Warning |
+| Hidden pages not labelled as such | Tooltip and drillthrough pages must be clearly labelled in the page name | Informational |
+| Drillthrough or nav buttons unlabelled | Any navigation element must be discoverable and clearly labelled | Informational |
+| Map visual present | Flag for governance review — Bing Maps data-sharing disclosure may be required | Warning |
 
-### Step 3: Review Report Theme
+#### Section 4: Data Integrity & Context
 
-- Is a corporate or project-approved theme applied?
-- Are brand colours used consistently?
-- Is the default Power BI theme being used (flag for review if no custom theme)?
+Confirm that data is presented accurately and with sufficient context for correct interpretation.
 
-### Step 4: Review Custom Visuals
+| Check | Rule | Severity |
+|-------|------|----------|
+| Visuals showing BLANK or ERROR | Unexpected blank or error states must be resolved before release | Critical |
+| Incorrect totals or subtotals | Tables must show correct aggregations with no mismatched or missing totals | Critical |
+| Units missing from measures | All measures must display units (%, £, $, K, M, etc.) to prevent misinterpretation | Warning |
+| Inconsistent currency or percentage format | Use symbols consistently across comparable visuals on the same page | Warning |
+| Time context not visible | Where time intelligence is used, the period (MTD, YTD, Last 12 Months, etc.) must be displayed | Warning |
+| Date slicer defaults to full range | Large default date ranges increase first-render query load — verify the default is intentional | Informational |
+| Refresh timestamp absent | If data is not live, display when it was last refreshed | Informational |
 
-If the report contains any non-built-in visuals, apply the custom visual governance rules in `rules/report-rules.md` (Custom Visual Rules section) and refer to `docs/custom-visuals.md` for full governance guidance. Agents can identify custom visuals and check data role population, but **cannot** render, execute, or validate the visual's internal logic. Defer behavioural and output-quality assessment to human review.
+### Step 3: Custom Visual Review
 
-### Step 5: Produce Report
+For any non-built-in visual identified in Step 1, apply the custom visual governance rules in `rules/report-rules.md` and refer to `docs/custom-visuals.md` for full guidance. Record certification status and whether all data roles are populated. Agents **cannot** render, execute, or validate the visual's internal logic — defer behavioural and output-quality assessment to a human reviewer.
 
-Write the review output using the template in `templates/report-review-template.md`.
+### Step 4: Produce Report
+
+Write the review output using `templates/report-review-template.md`. Record findings in the relevant section. Conclude with an overall verdict:
+
+| Verdict | Condition |
+|---|---|
+| **BLOCKED** | One or more Critical findings present |
+| **READY WITH WARNINGS** | No Critical findings; one or more Warnings |
+| **READY** | No Critical or Warning findings |
 
 ---
 
@@ -123,11 +133,12 @@ Write the review output using the template in `templates/report-review-template.
 
 ```
 Page: Sales Overview
+Section: Visual Design & Effectiveness
 Visual: Donut chart — Sales by Category
 Finding: Pie/donut chart with 9 slices
-Severity: Warning
-Detail: The donut chart has 9 category slices, which is difficult to distinguish visually,
-        especially with similar colours in the outer ring.
+Severity: Critical
+Detail: The donut chart has 9 category slices, well above the 3-slice maximum.
+        Slices become indistinguishable at this count, especially with similar hues.
 Suggested action: Replace with a horizontal bar chart sorted by sales descending.
                   This makes ranking immediately clear and scales to more categories.
 ```
