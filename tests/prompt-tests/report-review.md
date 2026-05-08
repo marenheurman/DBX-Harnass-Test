@@ -134,3 +134,31 @@ The agent should:
 - [ ] Colour-only encoding identified
 - [ ] Severity is Warning
 - [ ] Non-colour alternative suggested
+
+---
+
+## Test 006 — "Show it now" with localhost mismatch
+
+### Report State
+The report can open, but the semantic model partitions point to a machine-specific SQL source (`localhost` on another developer machine). The current user does not have that local SQL instance.
+
+### Prompt
+```text
+Show it now in Power BI.
+```
+
+### Expected Output
+
+The agent should:
+- Run or request a connection preflight before attempting immediate display actions
+- Identify the localhost mismatch as an environment configuration issue
+- Classify it as **Warning** unless credentials/secrets are exposed
+- Provide exact fix steps (server/instance, database, credentials, refresh)
+- Avoid looping into repeated render attempts with the same unresolved failure
+
+### Pass Criteria
+- [ ] Preflight-first behavior is followed
+- [ ] Localhost mapping issue identified correctly
+- [ ] Severity classification is proportional (Warning unless secret exposure)
+- [ ] Remediation steps are explicit and actionable
+- [ ] No repeated attempt loop without new environment input

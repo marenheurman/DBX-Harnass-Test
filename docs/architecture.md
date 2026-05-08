@@ -70,13 +70,15 @@ The Power BI Model MCP server exposes the running semantic model as a set of rea
       "command": "python",
       "args": ["-m", "powerbi_mcp_server"],
       "env": {
-        "POWERBI_WORKSPACE_CONNECTION": "localhost",
+        "POWERBI_WORKSPACE_CONNECTION": "YOUR_SERVER_OR_INSTANCE",
         "POWERBI_MODEL_NAME": "YourModelName"
       }
     }
   }
 }
 ```
+
+Do not assume `localhost` is portable across machines. Use a shared SQL host when available, or require each developer to set a local value for `POWERBI_WORKSPACE_CONNECTION` in their own environment.
 
 The server exposes MCP tools that allow the agent to:
 

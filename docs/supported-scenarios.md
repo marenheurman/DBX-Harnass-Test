@@ -68,6 +68,14 @@ Review all measures in the Sales table and flag any that use FILTER(ALL(...)) in
 Review the Overview page and flag any visual design or accessibility issues.
 ```
 
+### Preflight requirement for immediate display requests
+
+If the user requests immediate display-style actions (for example "show it now in Power BI"), the agent must run an environment preflight first.
+
+- If preflight detects machine-specific mapping issues such as `localhost` mismatch, classify as **Warning** and return corrective steps
+- If preflight detects embedded credentials or secrets in model or query definitions, classify as **Critical** and stop
+- The agent must avoid repeated render attempts when preflight is failing for the same unresolved reason
+
 ---
 
 ## Scenario 4: PBIP Project Structure Analysis
