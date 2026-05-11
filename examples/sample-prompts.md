@@ -74,6 +74,11 @@ Review only the [Sales Overview] page. I want to know if it is too dense, whethe
 I'm about to publish this report to the UAT workspace. Do a quick review of the report and tell me if there are any blockers.
 ```
 
+### Preflight before immediate display
+```
+Before you try to show anything in Power BI, run a preflight: validate Sql.Database server/instance and database mapping, credential mode, and refresh readiness. If a check fails, stop and give the exact fix steps.
+```
+
 ---
 
 ## PBIP Structure Check

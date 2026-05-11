@@ -14,6 +14,7 @@ Before executing any model inspection, query, or review task, the agent must det
 |---|---|---|
 | Local PBIP project | PBIP files on the developer's filesystem | Read-only file access permitted |
 | Power BI Desktop (local) | Model open in Desktop, connected via local AS engine | Read-only MCP queries permitted |
+| Power BI Desktop (live, build context) | Desktop open, build pattern active (Patterns A–E in report-build skill) | MCP write operations (tables, measures, relationships) and Python ZIP (report pages) permitted. Requires explicit user confirmation of environment before first write. User must save `.pbix` manually in Desktop. Agent must never overwrite the source file. |
 | Development workspace | Power BI Service workspace classified as DEV | Read-only; write proposals only |
 | Test / UAT workspace | Power BI Service workspace classified as UAT | Read-only; no agent writes |
 | Production workspace | Power BI Service workspace classified as PROD | Strict read-only; no queries without explicit approval |

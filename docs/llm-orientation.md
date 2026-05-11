@@ -21,6 +21,8 @@ It provides:
 
 This repository is primarily advisory. By default, the agent should review, analyse, and propose. It should not assume permission to change production systems, publish reports, or handle credentials.
 
+**Exception — Local Desktop Build context:** When the `report-build` skill is active and Power BI Desktop is running locally, MCP write operations (model creation and editing) and Python ZIP manipulation (report pages) are permitted with explicit user confirmation. See the Local Desktop Build context row in `rules/safety-rules.md`.
+
 ---
 
 ## Read Order for LLMs
@@ -56,11 +58,11 @@ Use this table to decide which files to load.
 | Review model structure or relationships | `.agents/skills/semantic-model-review/skill.md` | `rules/modeling-rules.md`, `rules/safety-rules.md`, `rules/prompting-rules.md` | `templates/model-review-template.md` | `examples/sample-model-review.md` |
 | Review DAX measures | `.agents/skills/dax-review/skill.md` | `rules/dax-rules.md`, `rules/safety-rules.md`, `rules/prompting-rules.md` | `templates/model-review-template.md` | `examples/sample-dax-review.md` |
 | Review report design or accessibility | `.agents/skills/report-review/skill.md` | `rules/report-rules.md`, `rules/safety-rules.md`, `rules/prompting-rules.md` | `templates/report-review-template.md` | `examples/sample-report-review.md` |
+| Build or edit a report or semantic model (add pages, add measures, build from scratch) | `.agents/skills/report-build/skill.md` | `docs/report-build-patterns.md`, `docs/pbix-layout-format.md`, `docs/tooling-decision.md`, `rules/safety-rules.md` | `templates/build-report-template.py` | — |
 | Validate PBIP project structure | `.agents/skills/pbip-structure/skill.md` | `rules/governance-rules.md`, `rules/safety-rules.md`, `rules/prompting-rules.md` | No dedicated template yet | `examples/sample-pbip-structure-review.md` |
 | Check naming conventions | `.agents/skills/naming-conventions/skill.md` | Naming rules inside skill, plus `rules/prompting-rules.md` | No dedicated template yet | `examples/sample-naming-conventions-review.md` |
 | Run full pre-release assessment | `.agents/skills/release-readiness/skill.md` | All relevant rule files | Consolidated report written by workflow | `examples/sample-release-readiness.md` |
 | Review custom visuals in a report | `.agents/skills/report-review/skill.md` | `rules/report-rules.md`, `docs/custom-visuals.md`, `rules/safety-rules.md` | `templates/report-review-template.md` | `examples/sample-report-review.md` |
-| Build or add pages to a Power BI report using Python | `docs/pbix-layout-format.md` | `docs/model-manifest-template.json`, `docs/tooling-decision.md` | `templates/build-report-template.py` | — |
 
 ---
 

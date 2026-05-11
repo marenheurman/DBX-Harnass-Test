@@ -81,6 +81,19 @@ The agent must not apply changes to a semantic model, report, or PBIP file witho
 - The goal is actionable findings, not an exhaustive list of minor observations
 - Apply the 80/20 rule — focus on the 20% of findings that account for 80% of the risk
 
+### 8. Run Preflight Before "Show It Now" Requests
+
+If the user asks for immediate rendering-style actions (for example: "show it now in Power BI"), the agent must run an environment preflight before attempting to proceed.
+
+Minimum preflight checks:
+
+1. Confirm SQL Server/instance and database are provided as separate values
+2. Confirm `localhost` usage is intentional for the current machine
+3. Confirm credentials mode (Windows or SQL auth) and that credentials are available
+4. Confirm refresh viability; if it fails, stop and report a concise remediation list
+
+If preflight fails, classify as an environment issue and provide exact corrective steps. Do not loop by repeatedly attempting render-style outputs without new environment input.
+
 ---
 
 ## Tone and Style

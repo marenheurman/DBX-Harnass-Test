@@ -21,28 +21,62 @@ This document helps teams decide which AI agent tooling to use for a given Power
 ## Decision Tree
 
 ```
-Is the task about writing or editing DAX / TMDL / PBIP files?
-├── Yes → Use GitHub Copilot inline in VS Code
-└── No
-    │
-    Is the task a structured review (model, DAX quality, report, release)?
-    ├── Yes → Use Claude or Copilot Chat with the relevant skill
-    └── No
-        │
-        Is the task adding or modifying report pages in a .pbix file?
-        ├── Yes — and you have a PBIP extract (folder structure)
-        │         → Use `pbi-tools compile` after editing the JSON source files
-        └── Yes — and you have only a .pbix file (no extract)
-                  → Use Python ZIP manipulation
-                    (see docs/pbix-layout-format.md and templates/build-report-template.py)
-            │
-            Is the model currently open in Power BI Desktop?
-            ├── Yes → Use MCP-connected agent for live inspection
-            └── No
-                │
-                Is the task documentation, planning, or design?
-                └── Yes → Use Claude without MCP (filesystem context is sufficient)
+What is the task?
+│
+├── Writing or editing DAX / TMDL / PBIP files inline?
+│   └── Yes → Use GitHub Copilot inline in VS Code
+│
+├── Structured review (model, DAX quality, report design, release readiness)?
+│   └── Yes → Use Claude or Copilot Chat with the relevant skill from .agents/skills/
+│
+├── Building or editing a Power BI report or semantic model programmatically?
+│   └── Yes → Load .agents/skills/report-build/skill.md and identify scenario:
+│
+│       No existing model, no existing .pbix?
+│       └── Pattern A: MCP model build (tables → relationships → measures → refresh)
+│                      then Python ZIP (add report pages)
+│                      Power BI Desktop must be open.
+│
+│       Existing .pbix, want to ADD new pages without touching existing ones?
+│       └── Pattern B: Python ZIP — append to layout["sections"], preserve existing ordinals
+│
+│       Existing .pbix, want to EDIT a specific visual on an existing page?
+│       └── Pattern C: Python ZIP — load layout, find page by displayName,
+│                      find visual container by config.name, modify and re-serialise
+│
+│       Existing .pbix, want a COPY with targeted changes?
+│       └── Pattern D: Python ZIP — copy all ZIP entries first,
+│                      then apply modifications to the copy
+│
+│       Model already open in Desktop, only need to add/change measures or columns?
+│       └── Pattern E: MCP write operations only (measure_operations, column_operations)
+│                      No Python needed.
+│
+│       PBIP folder (source-controlled project) available?
+│       └── Pattern F: Edit TMDL/JSON source files directly,
+│                      then pbi-tools compile to produce updated .pbix
+│
+├── Documentation, planning, or design work?
+│   └── Yes → Use Claude without MCP (filesystem context is sufficient)
+│
+└── Live model inspection or DAX query against real data?
+    └── Yes → MCP read operations (table_operations → List, measure_operations → List,
+               database_operations → ExportTMDL, etc.)
+               Power BI Desktop must be open with the model loaded.
 ```
+
+---
+
+## NOTE: Python ZIP vs pbi-tools vs MCP — Summary
+
+| Need | Use |
+|------|-----|
+| Add/modify report pages in a .pbix (no PBIP) | Python ZIP manipulation (docs/pbix-layout-format.md) |
+| Add/modify report pages in a PBIP project | pbi-tools compile after editing source JSON |
+| Extract a .pbix to editable PBIP source files | pbi-tools extract |
+| Create or modify model objects (tables, measures, relationships) | MCP write operations — Power BI Desktop must be open |
+| Live DAX query or model metadata read | MCP read operations |
+| Review or validate (no changes) | Claude/Copilot with relevant skill, MCP read-only |
 
 ---
 
