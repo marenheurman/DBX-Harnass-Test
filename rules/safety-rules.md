@@ -29,7 +29,8 @@ Agent: I cannot determine the workspace classification for this environment.
        Please confirm: is this a Development, UAT, or Production workspace?
 ```
 
-Classification must be re-confirmed at the start of each session. The agent must not carry forward a previous session's classification as an assumption.
+- Classification must be re-confirmed at the start of each session
+- The agent must not carry forward a previous session's classification as an assumption
 
 ---
 
@@ -74,7 +75,8 @@ All proposed changes must be written as text output for the developer to review 
 
 ### 4. No Bulk Operations Without Confirmation
 
-Agents must not run bulk DAX queries, bulk metadata reads, or iterative operations across all partitions of a large model without confirming the scope with the user first. Large query operations can slow or lock a local model.
+- Agents must not run bulk DAX queries, bulk metadata reads, or iterative operations across all partitions of a large model without confirming the scope with the user first
+- Large query operations can slow or lock a local model
 
 ### 5. No Sharing of Sensitive Data
 
@@ -104,7 +106,8 @@ Agents must never modify gateway or data source configurations. This includes:
 - Rebinding a dataset to a different data source or gateway
 - Changing the privacy level of a data source
 
-These operations can break data refresh across all reports and datasets that depend on the affected gateway or data source, including reports the agent is not aware of. All gateway and data source changes must be performed by a human with appropriate gateway administrator permissions.
+- These operations can break data refresh across all reports and datasets that depend on the affected gateway or data source, including reports the agent is not aware of.
+- All gateway and data source changes must be performed by a human with appropriate gateway administrator permissions.
 
 ---
 

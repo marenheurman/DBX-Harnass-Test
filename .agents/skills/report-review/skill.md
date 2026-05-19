@@ -3,6 +3,14 @@ name: report-review
 description: Use when reviewing a Power BI report for visual design quality, usability, accessibility, and adherence to enterprise reporting standards. Invoke before publishing to end users or during design reviews.
 ---
 
+## What This Skill Does
+
+- **Does:** Analyses the Power BI report structure and visual design and produces a structured findings report identifying issues that could confuse end users, reduce accessibility, or violate enterprise design standards.
+- **When:** A developer requests a report review, before publishing a report to end users, when investigating user complaints about confusing or incorrect visuals, or when running a release readiness check.
+- **Requires:** PBIP report files on disk (`definition/report.json` and `definition/pages/*.json`) or report metadata via MCP tooling.
+- **Produces:** A structured findings report with severity ratings covering layout, visual type, slicer, accessibility, data accuracy, theme, and custom visual checks.
+- **Does NOT:** Modify the report. All findings are proposals for the developer to act on.
+
 # Report Review
 
 ## Overview
@@ -21,7 +29,10 @@ Use this skill when:
 - Investigating user complaints about confusing or incorrect visuals
 - Running a release readiness check
 
-Do NOT use for:
+---
+
+## When Not to Use
+
 - Semantic model issues (use `semantic-model-review`)
 - DAX measure quality (use `dax-review`)
 - Building or generating report pages programmatically (use `report-build`)

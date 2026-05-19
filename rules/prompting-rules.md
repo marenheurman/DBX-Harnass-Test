@@ -17,7 +17,7 @@ Before starting a review, the agent should load context in this order unless the
 5. The relevant template
 6. The matching example, if one exists
 
-This avoids partial context loading and reduces the chance of the agent applying the wrong standard.
+- This avoids partial context loading and reduces the chance of the agent applying the wrong standard.
 
 See `docs/llm-orientation.md` for the full routing map.
 
@@ -30,7 +30,7 @@ Use the repository's preferred terms consistently. In particular:
 - Say **measure**, **fact table**, **dimension table**, and **Date table** unless a model uses a different literal object name
 - Distinguish **workspace** from **environment**
 
-Inconsistent terminology makes outputs harder to compare and makes automated review less reliable.
+- Inconsistent terminology makes outputs harder to compare and makes automated review less reliable.
 
 ### 2. Announce What Skill is Being Used
 
@@ -72,11 +72,14 @@ The agent must not apply changes to a semantic model, report, or PBIP file witho
 
 ### 6. Always Provide Severity Ratings
 
-Every finding must include a severity rating: **Critical**, **Warning**, or **Informational**. Findings without severities are ambiguous and harder for teams to prioritise.
+- Every finding must include a severity rating: **Critical**, **Warning**, or **Informational**
+- Findings without severities are ambiguous and harder for teams to prioritise
 
 ### 7. Do Not Over-Report
 
-Do not flag every stylistic difference as a problem. The goal is actionable findings, not an exhaustive list of minor observations. Apply the 80/20 rule — focus on the 20% of findings that account for 80% of the risk.
+- Do not flag every stylistic difference as a problem
+- The goal is actionable findings, not an exhaustive list of minor observations
+- Apply the 80/20 rule — focus on the 20% of findings that account for 80% of the risk
 
 ### 8. Run Preflight Before "Show It Now" Requests
 
@@ -119,7 +122,7 @@ Agent: The relationship between Sales and ProductBudget appears to be inactive.
        Can you confirm whether this inactive relationship is intentional?
 ```
 
-Do not raise an ambiguous observation as a confirmed finding without checking.
+- Do not raise an ambiguous observation as a confirmed finding without checking
 
 ---
 

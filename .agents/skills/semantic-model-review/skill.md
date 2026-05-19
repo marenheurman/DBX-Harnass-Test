@@ -3,6 +3,14 @@ name: semantic-model-review
 description: Use when reviewing a Power BI semantic model for structural correctness, relationship quality, and adherence to star schema principles. Invoke before release, after schema changes, or during model onboarding.
 ---
 
+## What This Skill Does
+
+- **Does:** Analyses the Power BI semantic model and produces a structured review report identifying structural, relational, and design issues that could cause incorrect aggregations, ambiguous filter propagation, or poor query performance.
+- **When:** A developer requests a model review, before a release to production, when onboarding to an inherited model, or when investigating unexplained measure values or report errors.
+- **Requires:** An open model in Power BI Desktop (via MCP) or PBIP model files on disk (`definition/model.bim` or TMDL files).
+- **Produces:** A structured findings report with severity ratings covering table classification, relationships, star schema compliance, and Date table validation.
+- **Does NOT:** Modify the model. All findings are proposals for the developer to act on.
+
 # Semantic Model Review
 
 ## Overview
@@ -22,14 +30,17 @@ Use this skill when:
 - Investigating unexplained measure values or report errors
 - Running a release readiness check
 
-Do NOT use for:
+---
+
+## When Not to Use
+
 - DAX measure quality (use the `dax-review` skill)
 - Report visual layout (use the `report-review` skill)
 - Naming convention checks (use the `naming-conventions` skill)
 
 ---
 
-## Review Workflow
+## Semantic Model Review Workflow
 
 ### Step 1: Gather Model Metadata
 

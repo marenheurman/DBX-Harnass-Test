@@ -3,6 +3,14 @@ name: naming-conventions
 description: Use when validating or enforcing naming conventions for Power BI tables, columns, measures, and hierarchies. Invoke during model review, after a merge, or when onboarding to an inherited model.
 ---
 
+## What This Skill Does
+
+- **Does:** Validates names across the semantic model — tables, columns, measures, and hierarchies — against the conventions defined in this document and produces a structured violations report.
+- **When:** A developer requests a naming check, after merging changes from multiple contributors, during onboarding to an inherited model, or when running a release readiness check.
+- **Requires:** An open model in Power BI Desktop (via MCP) or PBIP model files on disk.
+- **Produces:** A structured violations report grouped by severity and object type, with the exact object name, the rule violated, and a suggested correction for each finding.
+- **Does NOT:** Rename objects in the model directly. The developer applies corrections.
+
 # Naming Conventions
 
 ## Overview
@@ -20,6 +28,15 @@ Use this skill when:
 - Onboarding to an inherited model
 - After merging changes from multiple contributors
 - Running a release readiness check (called automatically by `release-readiness` skill)
+
+---
+
+## When Not to Use
+
+- Reviewing model structure or relationships (use `semantic-model-review`)
+- Reviewing DAX measure correctness or performance (use `dax-review`)
+- Reviewing report visual design (use `report-review`)
+- Validating PBIP project file structure (use `pbip-structure`)
 
 ---
 
@@ -94,7 +111,7 @@ Use this skill when:
 
 ---
 
-## Validation Workflow
+## Naming Conventions Workflow
 
 ### Step 1: Retrieve All Object Names
 

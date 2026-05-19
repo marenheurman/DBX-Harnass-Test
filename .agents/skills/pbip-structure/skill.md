@@ -3,6 +3,14 @@ name: pbip-structure
 description: Use when validating the structure of a Power BI Project (PBIP) for source-control readiness, file integrity, and correct project layout. Invoke when setting up a new project, migrating from PBIX, or validating before a pull request.
 ---
 
+## What This Skill Does
+
+- **Does:** Validates the structure and integrity of a Power BI Project (PBIP) to confirm it is correctly organised for source control, team collaboration, and automated deployment.
+- **When:** Setting up a new PBIP project, migrating from PBIX format, validating before a pull request, or running a release readiness check.
+- **Requires:** Access to PBIP project files on the filesystem.
+- **Produces:** A structured findings report with file path, check that failed, severity, and suggested action for each finding.
+- **Does NOT:** Create, modify, or delete project files. Reports findings and suggests corrections for the developer to apply.
+
 # PBIP Project Structure Analysis
 
 ## Overview
@@ -22,7 +30,10 @@ Use this skill when:
 - Investigating why a PBIP project cannot be opened or published correctly
 - Running a release readiness check (called automatically by `release-readiness` skill)
 
-Do NOT use for:
+---
+
+## When Not to Use
+
 - Reviewing the content of the semantic model (use `semantic-model-review`)
 - Reviewing DAX quality (use `dax-review`)
 
@@ -57,7 +68,7 @@ A well-formed PBIP project should contain the following:
 
 ---
 
-## Validation Workflow
+## PBIP Structure Workflow
 
 ### Step 1: Check Top-Level Structure
 

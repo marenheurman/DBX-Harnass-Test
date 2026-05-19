@@ -3,6 +3,14 @@ name: release-readiness
 description: Use when performing a full pre-release assessment of a Power BI semantic model and report. Runs all review skills in sequence and produces a consolidated readiness verdict. Invoke immediately before deploying to production.
 ---
 
+## What This Skill Does
+
+- **Does:** Runs a full, consolidated quality assessment of a Power BI project by invoking all component skills in sequence and produces a single readiness report.
+- **When:** Immediately before deploying to a production workspace, at the end of a sprint as a quality gate, or when a BI lead requests a full sign-off review.
+- **Requires:** Access to all artefacts needed by the component skills: semantic model, DAX measures, report files, PBIP project structure, and object names.
+- **Produces:** A single readiness report classified as **Ready**, **Ready with Warnings**, or **Blocked**, with aggregated findings from all component skills and a sign-off table.
+- **Does NOT:** Skip any component skill. Does not classify a release as Ready if any Critical finding is unresolved.
+
 # Release Readiness
 
 ## Overview
@@ -20,6 +28,13 @@ Use this skill when:
 - Before presenting a model to a client or stakeholder for the first time
 - At the end of a sprint as a quality gate
 - When a BI lead requests a full sign-off review
+
+---
+
+## When Not to Use
+
+- Reviewing only one aspect of a project — use the individual skill instead (`semantic-model-review`, `dax-review`, `report-review`, `pbip-structure`, or `naming-conventions`)
+- Early development stages where the model or report is not yet complete
 
 ---
 
