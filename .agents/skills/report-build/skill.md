@@ -66,6 +66,7 @@ Before building or modifying any visual, exact table, column, and measure names 
 
 - **Pattern A (build from scratch):** Author the manifest *alongside* the model as part of Pattern A Step A.2 — do not wait until after tables are created.
 - **All other patterns:** If a manifest already exists, use it. If not, derive names from the live model via MCP: `table_operations → List`, `column_operations → List`, `measure_operations → List`.
+- **When sourcing from flat files:** Apply **Pattern 0** from the `flat-file-ingestion` skill to sanitise table and column names before recording them in the manifest. The manifest must contain the sanitised (business-readable) names, not the raw source-system names.
 
 Use `docs/model-manifest-template.json` as the manifest format.
 
