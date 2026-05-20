@@ -31,7 +31,43 @@ description: Use when loading any uncontrolled flat or semi-structured data sour
 
 ## The 5 Defensive Patterns
 
-Apply all 5 patterns in sequence for every CSV-sourced partition.
+Apply all 5 patterns in sequence for every CSV-sourced partition. Before applying any of them, always apply **Pattern 0** to sanitise table and column names.
+
+---
+
+### Pattern 0 — Sanitise Names Before Modelling
+
+Always sanitise table and column names from flat-file sources **before** creating tables in the model and **before** recording names in the model manifest.
+
+**Why:** Flat files exported from source systems carry database-layer naming artefacts — prefixes, language qualifiers, and technical suffixes — that are meaningless to report developers and violate the naming conventions defined in `.agents/skills/naming-conventions/skill.md`.
+
+#### Table Name Rules
+
+| Rule | Example (before) | Example (after) |
+|---|---|---|
+| Strip `Dim` prefix | `DimProduct` | `Product` |
+| Strip `Fact` prefix | `FactInternetSales` | `Internet Sales` |
+| Strip `tbl_` / `TBL_` prefix | `tbl_Customer` | `Customer` |
+| PascalCase with spaces where natural word breaks exist | `DimSalesTerritory` | `Sales Territory` |
+
+#### Column Name Rules
+
+| Rule | Example (before) | Example (after) |
+|---|---|---|
+| Strip `English` / `Spanish` / `French` language prefix | `EnglishProductName` | `Product Name` |
+| Strip `AlternateKey` suffix from non-surrogate-key columns | `CurrencyAlternateKey` (descriptive) | `Currency Code` |
+| Keep `Key` suffix on genuine surrogate/foreign keys | `ProductKey`, `CustomerKey` | unchanged |
+| Strip `Flag` suffix; prefix with `Is` instead | `FinishedGoodsFlag` | `Is Finished Good` |
+| Expand abbreviations where meaning is ambiguous | `Pct` → `%`, `Amt` → `Amount`, `Qty` → `Quantity` | `DiscountPct` → `Discount %` |
+
+**Rule:** Apply this step mentally (or in a name-mapping table) **before** writing any M expression, before naming any table in `table_operations Create`, and before recording fields in the model manifest. The sanitised names are the names used in the model — raw source names remain only inside the M partition expression as `sourceColumn` references.
+
+**Checklist for Pattern 0:**
+- [ ] All table names are free of `Dim`, `Fact`, `tbl_` prefixes
+- [ ] All language-qualified column names (`English*`, `Spanish*`, `French*`) are stripped to their business label
+- [ ] `AlternateKey` columns that are not used as relationship keys are renamed to a descriptive business name
+- [ ] Surrogate/foreign key columns that are used in relationships retain their `Key` suffix unchanged
+- [ ] No column is named `Date` (DAX reserved word) — use `Order Date`, `Ship Date`, etc.
 
 ---
 
