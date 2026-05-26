@@ -42,6 +42,8 @@ For a machine-readable routing index, use [`docs/llm-index.json`](docs/llm-index
 | Check naming conventions | `.agents/skills/naming-conventions/skill.md` |
 | Run full pre-release assessment | `.agents/skills/release-readiness/skill.md` |
 | Build report pages in a .pbix using Python | `.agents/skills/report-build/skill.md` |
+| Load CSV, TSV, Excel or other flat-file sources cleanly | `.agents/skills/flat-file-ingestion/SKILL.md` |
+| Create or review the measures table and base measures | `.agents/skills/measure-table/SKILL.md` |
 
 For the complete routing table including rules, templates, and examples, see [`docs/llm-orientation.md`](docs/llm-orientation.md).
 

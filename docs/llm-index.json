@@ -113,6 +113,27 @@
       "example": "examples/sample-report-review.md",
       "test": "tests/prompt-tests/report-review.md"
     },
+    "flat-file-ingestion": {
+      "skill": ".agents/skills/flat-file-ingestion/SKILL.md",
+      "rules": [
+        "rules/modeling-rules.md",
+        "rules/safety-rules.md"
+      ],
+      "template": null,
+      "example": null,
+      "note": "Apply whenever an uncontrolled flat or semi-structured source is used in a model build (CSV, TSV, Excel export, SharePoint list, BCP/SQL text export). Covers NULL text replacement, European decimal handling, safe try/otherwise casting, binary column removal, and blank surrogate key filtering. Not needed for SQL, dataflows, or live connections."
+    },
+    "measure-table": {
+      "skill": ".agents/skills/measure-table/SKILL.md",
+      "rules": [
+        "rules/dax-rules.md",
+        "rules/modeling-rules.md",
+        "rules/safety-rules.md"
+      ],
+      "template": null,
+      "example": null,
+      "note": "Invoke during any model build after tables and relationships are defined, before writing any DAX. Covers _Measures table creation, base measure patterns (SUM/DISTINCTCOUNT), derived measures (DIVIDE-safe ratios), time intelligence, display folders, naming conventions, and measure creation order."
+    },
     "build-report-pages": {
       "skill": ".agents/skills/report-build/skill.md",
       "primaryReference": "docs/pbix-layout-format.md",
