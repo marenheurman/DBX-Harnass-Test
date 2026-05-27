@@ -30,6 +30,14 @@ All agent interactions are designed to be **read-only and advisory by default**.
 
 ---
 
+## Getting Started
+
+New to the harness? Follow the step-by-step onboarding guide:
+
+**[getting-started/README.md](getting-started/README.md)** — Prerequisites → MCP setup → First prompt → Using Claude
+
+---
+
 ## LLM Quick Start
 
 If you are an AI agent or coding assistant reading this repository, start with [AGENTS.md](AGENTS.md). It provides a concise orientation and immediate task routing before you read anything else.
