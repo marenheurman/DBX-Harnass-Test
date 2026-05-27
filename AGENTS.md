@@ -44,8 +44,19 @@ For a machine-readable routing index, use [`docs/llm-index.json`](docs/llm-index
 | Build report pages in a .pbix using Python | `.agents/skills/report-build/skill.md` |
 | Load CSV, TSV, Excel or other flat-file sources cleanly | `.agents/skills/flat-file-ingestion/SKILL.md` |
 | Create or review the measures table and base measures | `.agents/skills/measure-table/SKILL.md` |
+| **Build a complete new semantic model from scratch via MCP** | **`.agents/prompts/model-build-agent.md`** |
 
 For the complete routing table including rules, templates, and examples, see [`docs/llm-orientation.md`](docs/llm-orientation.md).
+
+---
+
+## Agent Prompts
+
+The `.agents/prompts/` folder contains **system prompts** that configure an AI agent for a specific end-to-end workflow. Unlike skills (which teach a single task), prompts wire together multiple skills, rules, and MCP operations into a complete execution sequence.
+
+| Prompt | Purpose |
+|---|---|
+| `.agents/prompts/model-build-agent.md` | Builds a complete Power BI semantic model from scratch from a flat-file data source. Covers schema discovery, table creation, relationships, `_Measures` table, DAX measures, and validation. |
 
 ---
 

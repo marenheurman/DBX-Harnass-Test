@@ -63,6 +63,7 @@ Use this table to decide which files to load.
 | Check naming conventions | `.agents/skills/naming-conventions/skill.md` | Naming rules inside skill, plus `rules/prompting-rules.md` | No dedicated template yet | `examples/sample-naming-conventions-review.md` |
 | Run full pre-release assessment | `.agents/skills/release-readiness/skill.md` | All relevant rule files | Consolidated report written by workflow | `examples/sample-release-readiness.md` |
 | Review custom visuals in a report | `.agents/skills/report-review/skill.md` | `rules/report-rules.md`, `docs/custom-visuals.md`, `rules/safety-rules.md` | `templates/report-review-template.md` | `examples/sample-report-review.md` |
+| **Build a complete new semantic model from scratch via MCP** | `.agents/prompts/model-build-agent.md` | `rules/safety-rules.md`, `.agents/skills/flat-file-ingestion/SKILL.md`, `.agents/skills/measure-table/SKILL.md`, `rules/dax-rules.md` | — | — |
 
 ---
 
