@@ -125,4 +125,4 @@ Suggested action: Change to single direction (Product filters Sales — dimensio
 
 ## Scoring
 
-After completing the review, assign a quality score using the rubric in `scoring-rubric.md` (same folder). Score each of the four pillars (Architectural Integrity, Semantic Accuracy, Usability & Metadata, Performance & Security) on a 0–4 scale, then compute the weighted total. Include the score table at the end of every review report.
+After completing the review, assign a quality score using the rubric in `scoring-rubric-model-v2.md` (same folder). Score each of the four pillars (Architectural Integrity, Semantic Accuracy, Usability & Metadata, Performance & Security) on a 0–4 scale, then compute the weighted total. Include the score table at the end of every review report.

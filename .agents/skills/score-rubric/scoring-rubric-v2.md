@@ -3,6 +3,9 @@ name: score-rubric
 description: Use when evaluating an AI-generated semantic model output against the four-pillar rubric for structural integrity, semantic accuracy, relationship logic, and documentation. Invoke when comparing skill-assisted vs baseline Copilot responses, or when grading any generated model definition for quality assurance.
 ---
 
+> **Use this file when:** Evaluating an **AI-generated** semantic model output — A/B prompt tests, quality gates on generated definitions, or comparing skill-assisted vs baseline Copilot responses.
+> For reviewing a **live, human-built** Power BI semantic model, use `.agents/skills/semantic-model-review/scoring-rubric-model-v2.md` instead.
+
 ## What This Skill Does
 
 - **Does:** Evaluates an AI-generated semantic model output by scoring it across four weighted pillars: structural integrity, semantic accuracy, relationship logic, and naming/documentation.
